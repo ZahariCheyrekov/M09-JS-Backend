@@ -4,9 +4,10 @@ const app = express();
 const handlebars = require('express-handlebars');
 
 app.engine('handlebars', handlebars.engine());
+app.use('/static', express.static('public'));
+app.set('view engine', 'handlebars');
 
 const cats = [];
-
 
 app.get('/', (req, res) => {
     res.send('Hello, World!');
