@@ -1,7 +1,7 @@
 const eventBus = require('./eventBus');
 
-eventBus.subscribe('Say hello', () => console.log('event say hello executed'));
-eventBus.subscribe('Say hello', () => console.log('event say hello second time'));
-eventBus.subscribe('Say bye', () => console.log('event say bye executed'));
+eventBus.subscribe('Say hello', (name) => console.log('event say hello executed ' + name));
+eventBus.subscribe('Say hello', (name) => console.log('event say hello second time ' + name));
+eventBus.subscribe('Say bye', (name) => console.log('event say bye executed ' + name));
 
-eventBus.publish('Say hello');
+eventBus.publish('Say hello', 'Pesho');
