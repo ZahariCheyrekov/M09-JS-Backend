@@ -11,7 +11,7 @@ app.use('/static', express.static('public'));
 const cats = [];
 
 app.get('/', (req, res) => {
-    res.render('home', { layout: false });
+    res.render('./home');
 });
 
 app.get('/cats', (req, res) => {
