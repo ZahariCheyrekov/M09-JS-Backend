@@ -3,8 +3,11 @@ const express = require('express');
 const app = express();
 const handlebars = require('express-handlebars');
 
-app.engine('handlebars', handlebars.engine());
-app.set('view engine', 'handlebars');
+app.engine('hbs', handlebars.engine({
+    extname: 'hbs'
+}));
+
+app.set('view engine', 'hbs');
 
 app.use('/static', express.static('public'));
 
