@@ -4,13 +4,14 @@ const app = express();
 const handlebars = require('express-handlebars');
 
 app.engine('handlebars', handlebars.engine());
-app.use('/static', express.static('public'));
 app.set('view engine', 'handlebars');
+
+app.use('/static', express.static('public'));
 
 const cats = [];
 
 app.get('/', (req, res) => {
-    res.send('Hello, World!');
+    res.render('home', { layout: false });
 });
 
 app.get('/cats', (req, res) => {
