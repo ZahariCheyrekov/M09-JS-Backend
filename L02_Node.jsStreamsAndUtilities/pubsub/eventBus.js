@@ -10,6 +10,6 @@ exports.subscribe = (eventType, callback) => {
     subscribers[eventType].push(callback);
 }
 
-exports.publish = (eventType, data) => {
-    subscribers[eventType].forEach(x => x(data));
+exports.publish = (eventType, ...params) => {
+    subscribers[eventType].forEach(x => x(...params));
 }
