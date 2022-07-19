@@ -30,8 +30,6 @@ app.put('/cats', (req, res) => {
     res.send('Cat was modified.');
 });
 
-
-
 app.all('*', (req, res) => {
     res.status(404);
     res.send('404 page not found :(');
