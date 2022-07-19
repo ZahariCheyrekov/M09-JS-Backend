@@ -7,7 +7,7 @@ exports.subscribe = (eventType, callback) => {
         subscribers[eventType] = [];
     }
 
-    subscribe[eventType].push(callback);
+    subscribers[eventType].push(callback);
 }
 
 exports.publish = (eventType,) => {
