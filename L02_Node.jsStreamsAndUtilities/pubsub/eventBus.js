@@ -2,10 +2,14 @@ const subscribers = {
 
 }
 
-export const subscribe = (eventType, callback) => {
-    console.log('subscribe');
+exports.subscribe = (eventType, callback) => {
+    if (!subscribers[eventType]) {
+        subscribers[eventType] = [];
+    }
+
+    subscribe[eventType].push(callback);
 }
 
-export const publish = (eventType,) => {
-    console.log('publish');
+exports.publish = (eventType,) => {
+    subscribers[eventType].forEach(x => x());
 }
