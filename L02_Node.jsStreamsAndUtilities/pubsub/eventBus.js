@@ -1,5 +1,8 @@
 const subscribers = {
 
-};
+}
 
-export 
+export const subscribe = (eventType, callback) => {
+    console.log('subscribe');
+}
+
