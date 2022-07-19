@@ -2,31 +2,35 @@ const express = require('express');
 
 const app = express();
 
-const cats = ['Tom, Garfield, Lin'];
+const cats = [];
 
 app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
 
 app.get('/cats', (req, res) => {
-    if (cats.length > 0) {
+    if (cats.length === 0) {
         res.send('No cats :(');
     }
 
     res.send(cats.join(', '));
 });
 
-app.post('/cats', (req, res) => {
-    //TODO: Implement posting cat function logic
+app.post('/cats/:catName', (req, res) => {
+    const cat = req.params.catName;
+    cats.push(cat);
 
-    res.send('Add new cat to the collection.');
+    res.status(201);
+    res.send(`${cat} was successfully added to the collection! :)`);
 });
 
 app.put('/cats', (req, res) => {
-    //TODO: Implement modify cat request function
+    //TODO: Implement cat modify functionallity
 
-    res.send('Modify existing cat');
+    res.send('Cat was modified.');
 });
+
+
 
 app.all('*', (req, res) => {
     res.status(404);
