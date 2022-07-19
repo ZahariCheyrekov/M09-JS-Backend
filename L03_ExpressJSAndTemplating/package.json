@@ -1,7 +1,6 @@
 {
   "name": "l03_expressjsandtemplating",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
@@ -13,5 +12,8 @@
     "express": "^4.18.1",
     "express-handlebars": "^6.0.6",
     "nodemon": "^2.0.19"
-  }
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "description": ""
 }
