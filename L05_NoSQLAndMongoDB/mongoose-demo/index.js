@@ -15,7 +15,7 @@ mongoose.connect(url)
         console.log('DB ERror: ', err);
     })
 
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.engine('hbs', hbs.engine({
     extname: 'hbs'
 }));
