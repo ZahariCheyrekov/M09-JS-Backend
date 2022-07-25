@@ -11,7 +11,7 @@ router.post('/login', async (req, res) => {
     const user = await authService.login(username, password);
     const token = await authService.createToken(user);
 
-    res.cookie(COOKIE_SESSION_NAME, token);
+    res.cookie(COOKIE_SESSION_NAME, token, { httpOnly: true });
     res.redirect('/');
 });
 
@@ -30,7 +30,7 @@ router.post('/register', async (req, res) => {
         const createdUser = await authService.create({ password, ...userData });
         const token = await authService.createToken(createdUser);
 
-        res.cookie(COOKIE_SESSION_NAME, token);
+        res.cookie(COOKIE_SESSION_NAME, token, { httpOnly: true });
         res.redirect('/login');
     } catch (error) {
         return res.render('auth/register', { error: 'db error' });
