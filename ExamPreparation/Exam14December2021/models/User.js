@@ -5,16 +5,21 @@ const { SALT_ROUNDS } = require('../config/env');
 
 const userSchema = new mongoose.Schema({
     username: {
-        type: String
+        type: String,
+        required: true
     },
     password: {
-        type: String
+        type: String,
+        required: true
     }
 });
 
-userSchema.pre('save', function () {
-    bcrypt.hash(this.password, SALT_ROUNDS);
-    this.password = hashedPassword;
+userSchema.pre('save', function (next) {
+    bcrypt.hash(this.password, SALT_ROUNDS)
+        .then(hashedPassword => {
+            this.password = hashedPassword;
+            next();
+        });
 });
 
 const User = mongoose.model('User', userSchema);
