@@ -3,6 +3,7 @@ const router = require('express').Router();
 const authService = require('../services/authService');
 const { COOKIE_SESSION_NAME } = require('../constants');
 const { isAuth, isGuest } = require('../middlewares/authMiddleware');
+const { getErrorMessage } = require('../utils/errorHelpers');
 
 router.get('/login', isGuest, (req, res) => {
     res.render('auth/login');
@@ -35,7 +36,7 @@ router.post('/register', isGuest, async (req, res) => {
         res.cookie(COOKIE_SESSION_NAME, token, { httpOnly: true });
         res.redirect('/login');
     } catch (error) {
-        return res.render('auth/register', { error: 'db error' });
+        return res.render('auth/register', { error: getErrorMessage(error) });
     }
 });
 
