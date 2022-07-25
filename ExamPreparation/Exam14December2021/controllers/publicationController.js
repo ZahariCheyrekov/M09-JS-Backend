@@ -11,7 +11,7 @@ router.get('/create', (req, res) => {
 router.post('/create', async (req, res) => {
     const createdPublication = await publicationService.create(req.body);
 
-    res.redirect('/');
+    res.redirect('/publications');
 });
 
 module.exports = router;
