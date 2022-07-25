@@ -9,7 +9,8 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
-    const createdPublication = await publicationService.create(req.body);
+    const publicationData = { ...req.body, author: req.user._id };
+    await publicationService.create(publicationData);
 
     res.redirect('/publications');
 });
