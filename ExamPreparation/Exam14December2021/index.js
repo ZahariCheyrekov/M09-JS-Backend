@@ -6,6 +6,7 @@ const { PORT } = require('./config/env');
 const routes = require('./router');
 const { dbInit } = require('./config/initDB');
 const { auth } = require('./middlewares/authMiddleware');
+const { errorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(express.static('public'));
 app.use(cookieParser());
 app.use(auth);
 app.use(routes);
+app.use(errorHandler);
 
 dbInit();
 
