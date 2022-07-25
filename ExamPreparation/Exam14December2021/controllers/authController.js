@@ -7,7 +7,8 @@ router.get('/login', (req, res) => {
 
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
-    await authService.login(username, password);
+    const user = await authService.login(username, password);
+    const token = await authService.createToken(user);
 });
 
 router.get('/register', (req, res) => {
