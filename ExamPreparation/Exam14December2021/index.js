@@ -3,6 +3,7 @@ const hbs = require('express-handlebars');
 
 const { PORT } = require('./config/env');
 const routes = require('./router');
+const { dbInit } = require('./config/initDB');
 
 const app = express();
 
@@ -16,4 +17,5 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static('public'));
 app.use(routes);
 
+dbInit();
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
