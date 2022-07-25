@@ -10,14 +10,14 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-    const { username, password, repeatPassword } = req.body;
+    const { password, repeatPassword, ...userData } = req.body;
 
     if (password !== repeatPassword) {
         return res.render('auth/register', { error: 'Password mismatch' });
     }
 
     try {
-        await authService.create({ username, password });
+        await authService.create({ password, ...userData });
         res.redirect('/login');
     } catch (error) {
         return res.render('auth/register', { error: 'db error' });
