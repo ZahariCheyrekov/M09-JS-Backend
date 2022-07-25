@@ -10,7 +10,7 @@ exports.auth = (req, res, next) => {
         jwt.verify(token, SECRET, ((err, decodedToken) => {
             if (err) {
                 res.clearCookie(COOKIE_SESSION_NAME);
-                return next(err);
+                res.redirect('/login');
             }
 
             req.user = decodedToken;
