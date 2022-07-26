@@ -4,6 +4,7 @@ const authService = require('../services/authService');
 const { COOKIE_SESSION_NAME } = require('../constants');
 const { isAuth, isGuest } = require('../middlewares/authMiddleware');
 const { getErrorMessage } = require('../utils/errorHelpers');
+const { PASSWORD_MISMATCH_ERROR_MESSAGE } = require('../constants/authContstants');
 
 router.get('/login', isGuest, (req, res) => {
     res.render('auth/login');
@@ -26,7 +27,7 @@ router.post('/register', isGuest, async (req, res) => {
     const { password, repeatPassword, ...userData } = req.body;
 
     if (password !== repeatPassword) {
-        return res.render('auth/register', { error: 'Password mismatch' });
+        return res.render('auth/register', { error: PASSWORD_MISMATCH_ERROR_MESSAGE });
     }
 
     try {
