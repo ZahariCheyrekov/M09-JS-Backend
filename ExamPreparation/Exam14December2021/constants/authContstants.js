@@ -1,0 +1,1 @@
+export const NO_USERNAME_OR_PASSWORD_MESSAGE = 'Cannot find username or password';
