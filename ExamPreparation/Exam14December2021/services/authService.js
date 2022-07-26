@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const { SECRET } = require('../config/env');
+const { NO_USERNAME_OR_PASSWORD_MESSAGE } = require('../constants/authContstants');
 
 exports.create = (userData) => User.create(userData);
 
@@ -10,7 +11,7 @@ exports.login = async (username, password) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-        throw { message: 'Cannot find username or password' }
+        throw { message: NO_USERNAME_OR_PASSWORD_MESSAGE }
     }
 
     const isValid = bcrypt.compare(password, user.password);
