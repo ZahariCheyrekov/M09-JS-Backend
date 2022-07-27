@@ -36,6 +36,7 @@ router.post('/register', isGuest, async (req, res) => {
 
         res.cookie(COOKIE_SESSION_NAME, token, { httpOnly: true });
         res.redirect('/login');
+        
     } catch (error) {
         return res.render('auth/register', { error: getErrorMessage(error) });
     }
