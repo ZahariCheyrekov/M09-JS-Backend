@@ -127,6 +127,7 @@ a.active {
     color: #55595c;
     text-align: center;
     vertical-align: middle;
+    
     user-select: none;
     background-color: transparent;
     border: 0 solid transparent;
