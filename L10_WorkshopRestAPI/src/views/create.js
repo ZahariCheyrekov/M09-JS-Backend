@@ -28,6 +28,7 @@ const createTemplate = (onSubmit) => html`<div class="row space-top">
                 <input class="form-control" id="new-description" type="text" name="description">
             </div>
         </div>
+
         <div class="col-md-4">
             <div class="form-group">
                 <label class="form-control-label" for="new-price">Price</label>
