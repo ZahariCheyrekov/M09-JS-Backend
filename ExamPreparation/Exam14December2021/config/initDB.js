@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const { DB_QUERYSTRING } = require('./env');
 
 exports.dbInit = () => {
