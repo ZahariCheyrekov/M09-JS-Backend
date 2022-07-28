@@ -19,6 +19,7 @@ app.get('/hash/:password?', async (req, res) => {
     res.send(hash);
 });
 
+// mysecretpassword is the right password
 app.get('/login/:password', async (req, res) => {
     const isValidPassword = await bcrypt.compare(req.params.password, hashedPassword);
 
