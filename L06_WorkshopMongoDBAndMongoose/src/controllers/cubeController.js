@@ -8,9 +8,8 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
-    const cube = req.body;
-
     // Validate
+    const cube = req.body;
     if (cube.name.length < 2) {
         return res.status(400).send('Invalid request');
     }
@@ -18,8 +17,8 @@ router.post('/create', async (req, res) => {
     // Save data
     try {
         await cubeService.create(cube);
-
         res.redirect('/');
+
     } catch (error) {
         console.log(error);
         res.status(400).send(error);
@@ -28,7 +27,6 @@ router.post('/create', async (req, res) => {
 
 router.get('/details/:id', async (req, res) => {
     const cube = await cubeService.getOneDetails(req.params.id).lean();
-
     res.render('details', { cube });
 });
 
@@ -41,7 +39,6 @@ router.get('/:cubeId/attach-accessory', async (req, res) => {
 
 router.post('/:cubeId/attach-accessory', async (req, res) => {
     const accessoryId = req.body.accessory;
-
     await cubeService.attachAccessory(req.params.cubeId, accessoryId);
 
     res.redirect(`/cube/details/${req.params.cubeId}`);
