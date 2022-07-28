@@ -19,7 +19,6 @@ app.get('/hash/:password?', async (req, res) => {
     res.send(hash);
 });
 
-// mysecretpassword is the right password
 app.get('/login/:password', async (req, res) => {
     const isValidPassword = await bcrypt.compare(req.params.password, hashedPassword);
 
@@ -36,7 +35,6 @@ app.get('/login/:password', async (req, res) => {
     }
 });
 
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlBlc2hvIiwiaWF0IjoxNjU0NTM2NzY1LCJleHAiOjE2NTQ3MDk1NjV9.IpwOKCkBcebrYctYY1aXJb8NwF4GIpWRcusruE_08ME
 app.get('/verify/:token', (req, res) => {
     jwt.verify(req.params.token, secret, (err, decodedToken) => {
         if (err) {
