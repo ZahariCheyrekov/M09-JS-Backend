@@ -16,6 +16,7 @@ app.get('/hash/:password?', async (req, res) => {
 
     console.log('Salt:', salt);
     console.log('hash:', hash);
+
     res.send(hash);
 });
 
@@ -42,7 +43,6 @@ app.get('/verify/:token', (req, res) => {
         if (err) {
             return res.status(401).send('You don\'t have permissions')
         }
-
         res.json(decodedToken);
     });
 })
