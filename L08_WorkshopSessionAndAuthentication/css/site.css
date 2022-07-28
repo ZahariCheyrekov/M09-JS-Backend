@@ -91,13 +91,15 @@ p.name {
 }
 
 
-button, main a.btn {
+button,
+main a.btn {
     border: none;
     padding: 8px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 18px;
+    
     width: 35%;
     margin: 12px;
     border-radius: 4px;
@@ -105,7 +107,7 @@ button, main a.btn {
     color: white;
 }
 
-.details a.btn{
+.details a.btn {
     width: 28%;
 }
 
@@ -115,7 +117,7 @@ button:hover {
     cursor: pointer;
 }
 
-a.btn:hover{
+a.btn:hover {
     text-decoration: underline;
 }
 
@@ -229,16 +231,16 @@ span.error {
     display: block;
 }
 
-img#sadFaceImg{
+img#sadFaceImg {
     display: block;
     margin: 0 auto;
 }
 
-h2{
+h2 {
     text-align: center;
 }
 
-.accessories .accessory{
+.accessories .accessory {
     display: inline-block;
     background-color: #f3f3f2;
     width: 20%;
@@ -246,7 +248,8 @@ h2{
     margin: 1%;
 }
 
-.accessories, .italic{
+.accessories,
+.italic {
     text-align: center;
     font-style: italic;
 }
