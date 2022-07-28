@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 
 const userSessions = {};
-
 const app = express();
 const saltRounds = 10;
 const secret = 'mysupersecretsecret';
