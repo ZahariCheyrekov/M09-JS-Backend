@@ -6,7 +6,8 @@ const app = express();
 const url = 'mongodb://localhost:27017';
 const client = new MongoClient(url);
 
-client.connect()
+client
+    .connect()
     .then(() => {
         console.log('DB Connected successfuly');
     });
