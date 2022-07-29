@@ -12,6 +12,7 @@ router.get('/login', isGuest, (req, res) => {
 
 router.post('/login', isGuest, async (req, res) => {
     const { username, password } = req.body;
+    
     const user = await authService.login(username, password);
     const token = await authService.createToken(user);
 
