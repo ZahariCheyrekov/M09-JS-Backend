@@ -10,6 +10,7 @@
     background-color: #fff;
     width: 600px;
     height: 500px;
+    
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
