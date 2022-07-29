@@ -10,7 +10,7 @@
     background-color: #fff;
     width: 600px;
     height: 500px;
-    
+
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -33,6 +33,7 @@
     background-image: linear-gradient(to right, #F3CEA4, #422263);
     display: block;
     color: #fff;
+    
     font-size: 1rem;
     cursor: pointer;
     margin-top: 1.6em;
