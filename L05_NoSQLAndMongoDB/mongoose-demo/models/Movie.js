@@ -22,9 +22,6 @@ const movieSchema = new mongoose.Schema({
     },
 });
 
-// movieSchema.method('getInfo', function() {
-//     return `${this.title} - ${this.description || 'n/a'}`;
-// });
 movieSchema.methods.getInfo = function() {
     return `${this.title} - ${this.description || 'n/a'}`;
 };
