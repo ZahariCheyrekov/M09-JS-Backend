@@ -18,7 +18,6 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
-    // Second way to cerate db document
     let savedMovie = await Movie.create(req.body);
     console.log(savedMovie);
 
