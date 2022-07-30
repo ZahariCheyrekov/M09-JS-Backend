@@ -26,8 +26,6 @@ exports.attachAccessory = async (cubeId, accessoryId) => {
     const cube = await Cube.findById(cubeId);
     const accessory = await Accessory.findById(accessoryId);
 
-    // const cubeObjectId = mongoose.Types.ObjectId(cubeId);
-
     cube.accessories.push(accessory);
     accessory.cubes.push(cube);
 
