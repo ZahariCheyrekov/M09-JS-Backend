@@ -8,7 +8,6 @@ router.get('/', async (req, res) => {
 
 router.get('/:movieId', async (req, res) => {
     console.log(req.params.movieId);
-    // let movie = await Movie.findOne({_id: req.params.movieId}).lean();
     let movie = await Movie.findById(req.params.movieId).lean();
 
     res.render('movieDetails', {movie})
