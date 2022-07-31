@@ -34,8 +34,6 @@ app.post('/cats/:catName', (req, res) => {
 });
 
 app.put('/cats', (req, res) => {
-    //TODO: Implement cat modify functionallity
-
     res.send('Cat was modified.');
 });
 
