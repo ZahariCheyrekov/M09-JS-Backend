@@ -1,4 +1,3 @@
 const fs = require('fs/promises');
 
-fs.mkdir('./test')
-    .then(() => console.log('Finished!'));
+fs.mkdir('./test').then(() => console.log('Finished!'));
