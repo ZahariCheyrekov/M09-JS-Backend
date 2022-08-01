@@ -1,6 +1,4 @@
-const subscribers = {
-
-}
+const subscribers = {};
 
 exports.subscribe = (eventType, callback) => {
     if (!subscribers[eventType]) {
