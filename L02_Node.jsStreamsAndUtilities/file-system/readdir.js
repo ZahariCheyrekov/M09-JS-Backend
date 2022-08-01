@@ -5,6 +5,5 @@ fs.readdir('./L02_Node.jsStreamsAndUtilities/file-system', (err, data) => {
         console.log(err);
         return;
     }
-
     console.log(data);
 });
