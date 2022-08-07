@@ -42,3 +42,6 @@
 - Authentication Concepts
 - JSON Web Token
 
+## <p id="validation">Validation and Error Handling</p>
+- Validation (why and how, mongoose validation
+- Error handling
