@@ -37,4 +37,8 @@
 - CRUD with Mongoose
 - Mongoose Querying
 
+## <p id="session">Session and Authentication</p>
+- Cookies and Sessions
+- Authentication Concepts
+- JSON Web Token
 
