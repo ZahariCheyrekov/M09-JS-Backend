@@ -1,6 +1,6 @@
 # About
 
-Intensive cours wich aims to introduce the participants to the development of server-side JavaScript applications on the Node.js platform using Express.js as a framework. During the course, participants will learn how to create a server with Node.js, learn the server-side architecture and how to make easy and fast data-driven web applications with Node.js, Express.js and MongoDB using competing concepts and tools. MongoDB will be considered, together with the Mongoose library for paying data from it. Towards the end of the course, an entire REST API will be built from scratch using Express.js and MongoDB.
+Intensive course which aims to introduce the participants to the development of server-side JavaScript applications on the Node.js platform using Express.js as a framework. During the course, participants will learn how to create a server with Node.js, learn the server-side architecture and how to make easy and fast data-driven web applications with Node.js, Express.js and MongoDB using competing concepts and tools. MongoDB will be considered, together with the Mongoose library for paying data from it. Towards the end of the course, an entire REST API will be built from scratch using Express.js and MongoDB.
 
 # Course Overview
 
