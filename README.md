@@ -45,3 +45,10 @@
 ## <p id="validation">Validation and Error Handling</p>
 - Validation (why and how, mongoose validation
 - Error handling
+
+## <p id="reastapi">Workshop: REST API</p>
+- What is REST and RESTful services?
+- Setup Express.js REST API
+- CORS
+- Authentication with JWT
+- Error Handling and Validation
