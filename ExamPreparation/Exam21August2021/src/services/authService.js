@@ -5,5 +5,5 @@ exports.login = () => {
 }
 
 exports.register = (userData) => {
-
+    User.create(userData);
 }
