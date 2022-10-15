@@ -1,5 +1,6 @@
 const express = require('express');
 
+const { configDatabase } = require('./config/databaseConfig.js');
 const { PORT } = require('./constants');
 
 const app = express();
@@ -11,4 +12,4 @@ require('./config/hbsConfig.js')(app);
 
 app.use(routes);
 
-app.listen(PORT, () => console.log(`Server is listening on port http://localhost:${PORT}/`));
+configDatabase(app, PORT);
