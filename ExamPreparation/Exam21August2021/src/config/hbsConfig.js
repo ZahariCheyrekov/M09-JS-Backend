@@ -1,3 +1,4 @@
+const path = require('path');
 const { engine } = require('express-handlebars');
 
 const hbsConfig = (app) => {
@@ -5,7 +6,7 @@ const hbsConfig = (app) => {
         extname: 'hbs'
     }));
 
-    app.set('views', './src/views');
+    app.set('views', path.resolve(__dirname, '../views'));
     app.set('view engine', 'hbs');
 }
 
