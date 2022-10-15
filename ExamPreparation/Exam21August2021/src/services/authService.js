@@ -1,9 +1,9 @@
-const { User } = require('../models/User');
+const User = require('../models/User.js');
 
 exports.login = () => {
 
 }
 
-exports.register = (userData) => {
-    User.create(userData);
+exports.register = async (userData) => {
+    await User.create(userData);
 }

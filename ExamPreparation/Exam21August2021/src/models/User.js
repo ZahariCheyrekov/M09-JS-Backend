@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const { SALT } = require('../constants');
+const { SALT } = require('../constants.js');
 
 const userSchema = mongoose.Schema({
     name: {
@@ -20,9 +20,9 @@ const userSchema = mongoose.Schema({
 
 userSchema.pre('save', (next) => {
     return bcrypt.hash(this.password, SALT)
-        .then(hash => {
+        .then((hash) => {
             this.password = hash;
-            next();
+            return next();
         });
 });
 
