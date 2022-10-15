@@ -1,3 +1,6 @@
+const jwt = require('../utils/jwt');
+const util = require('util');
+const { JWT_SECRET } = require('../constants.js');
 const User = require('../models/User.js');
 
 exports.login = async ({ username, password }) => {
@@ -12,6 +15,15 @@ exports.login = async ({ username, password }) => {
     if (!isValid) {
         throw new Error('Invalid username or password!');
     }
+
+    const payload = {
+        _id: user._id,
+        name: user.name,
+        username: user.username
+    }
+
+    const token = await jwt.sign(payload, JWT_SECRET);
+    return token;
 }
 
 exports.register = async (userData) => {
