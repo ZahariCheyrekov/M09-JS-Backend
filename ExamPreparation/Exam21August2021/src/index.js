@@ -2,6 +2,7 @@ const express = require('express');
 
 const app = express();
 
+require('./config/expressConfig.js')(app);
 require('./config/hbsConfig.js')(app);
 
 const PORT = process.env.PORT || 5001;
