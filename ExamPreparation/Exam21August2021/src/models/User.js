@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+
+const { SALT } = require('../constants');
 
 const userSchema = mongoose.Schema({
     name: {
@@ -13,6 +16,14 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
+});
+
+userSchema.pre('save', (next) => {
+    return bcrypt.hash(this.password, SALT)
+        .then(hash => {
+            this.password = hash;
+            next();
+        });
 });
 
 const User = mongoose.model('User', userSchema);
