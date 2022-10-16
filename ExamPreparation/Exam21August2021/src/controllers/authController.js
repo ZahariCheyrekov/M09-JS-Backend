@@ -1,4 +1,5 @@
 const router = require('express').Router();
+
 const { AUTH_COOKIE_NAME } = require('../constants.js');
 const { login, register } = require('../services/authService.js');
 
@@ -47,6 +48,11 @@ router.post('/register', async (req, res) => {
     })
 
     res.cookie(AUTH_COOKIE_NAME, token);
+    res.redirect('/');
+});
+
+router.get('/logout', (req, res) => {
+    res.clearCookie(AUTH_COOKIE_NAME);
     res.redirect('/');
 });
 
