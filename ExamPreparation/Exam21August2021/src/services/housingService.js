@@ -1,5 +1,9 @@
 const Housing = require("../models/Housing");
 
+exports.getAll = async () => {
+    return await Housing.find().lean();
+}
+
 exports.create = async (housingData) => {
     return await Housing.create(housingData);
 }
