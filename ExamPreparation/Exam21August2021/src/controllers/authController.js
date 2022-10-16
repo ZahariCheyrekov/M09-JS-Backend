@@ -41,6 +41,12 @@ router.post('/register', async (req, res) => {
         rePassword
     });
 
+    const token = await login({
+        username,
+        password
+    })
+
+    res.cookie(AUTH_COOKIE_NAME, token);
     res.redirect('/');
 });
 
