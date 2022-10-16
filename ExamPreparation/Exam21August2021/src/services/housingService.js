@@ -1,7 +1,7 @@
 const Housing = require("../models/Housing");
 
 exports.getOne = async (housingId) => {
-    return await Housing.findById(housingId).lean();
+    return await Housing.findById(housingId).populate('tenants');
 }
 
 exports.getAll = async () => {
