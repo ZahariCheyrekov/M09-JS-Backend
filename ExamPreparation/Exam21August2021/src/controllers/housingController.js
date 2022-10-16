@@ -2,8 +2,10 @@ const router = require('express').Router();
 
 const housingService = require('../services/housingService.js');
 
-router.get('/', (req, res) => {
-    res.render('housing');
+router.get('/', async (req, res) => {
+    const housings = await housingService.getTopHouses();
+    
+    res.render('housing', { housings });
 });
 
 router.get('/create', (req, res) => {
