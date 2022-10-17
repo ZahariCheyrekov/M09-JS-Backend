@@ -4,23 +4,21 @@ const jwt = require('jsonwebtoken');
 const { TOKEN_SECRET, COOKIE_NAME } = require('../config/index.js');
 const userService = require('../services/user.js');
 
-function init() {
-    return function (req, res, next) {
-        req.auth = {
-            async register(username, password) {
-                const token = await register(username, password);
-                res.cookies(COOKIE_NAME, token);
-            },
-            async login() {
-                const token = await login(username, password);
-                res.cookies(COOKIE_NAME, token);
-            },
-            logout() {
-                res.clearCookie(COOKIE_NAME);
-            }
+module.exports = (req, res, next) => {
+    req.auth = {
+        async register(username, password) {
+            const token = await register(username, password);
+            res.cookies(COOKIE_NAME, token);
+        },
+        async login() {
+            const token = await login(username, password);
+            res.cookies(COOKIE_NAME, token);
+        },
+        logout() {
+            res.clearCookie(COOKIE_NAME);
         }
-        next();
     }
+    next();
 }
 
 async function register(username, password) {
