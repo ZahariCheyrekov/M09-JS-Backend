@@ -11,11 +11,12 @@ function init() {
                 const token = await register(username, password);
                 res.cookies(COOKIE_NAME, token);
             },
-            async login() {
-
+            async login(username, password) {
+                const token = await login(username, password);
+                res.cookies(COOKIE_NAME, token);
             },
             logout() {
-
+                res.clearCookie(COOKIE_NAME);
             }
         }
         next();
