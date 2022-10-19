@@ -26,8 +26,8 @@ userSchema.pre('save', function (next) {
         });
 });
 
-userSchema.method('validatePassword', function (password) {
-    return bcrypt.compare(password, this.password);
+userSchema.method('validatePassword', async function (pass) {
+    return await bcrypt.compare(pass, this.password);
 });
 
 exports.User = mongoose.model('User', userSchema);
