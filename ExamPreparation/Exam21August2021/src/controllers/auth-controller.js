@@ -10,8 +10,16 @@ router.get('/register', (req, res) => {
     res.render('auth/register');
 });
 
-router.post('/register', (req, res) => {
-    
+router.post('/register', async (req, res) => {
+
+    if (req.password !== req.rePassword) {
+        res.locals.errors = 'Password mismatch!';
+        res.render('auth/register');
+    }
+
+    await authService.register(req.body);
+
+    res.redirect('/');
 });
 
 module.exports = router;
