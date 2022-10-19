@@ -4,6 +4,6 @@ exports.login = () => {
 
 }
 
-exports.register = (userData) => {
-
+exports.register = async (userData) => {
+    await User.create(userData);
 }
