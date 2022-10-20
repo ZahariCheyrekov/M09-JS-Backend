@@ -29,7 +29,7 @@ const bookSchema = mongoose.Schema({
     },
     wishingList: [
         {
-            user: mongoose.Types.ObjectId,
+            type: mongoose.Types.ObjectId,
             ref: 'User'
         }
     ],
