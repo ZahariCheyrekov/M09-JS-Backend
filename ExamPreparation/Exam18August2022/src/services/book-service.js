@@ -45,3 +45,11 @@ exports.deleteBook = async (bookId) => {
         console.log(error);
     }
 }
+
+exports.editBook = async (bookId, bookData) => {
+    try {
+        await Book.findByIdAndUpdate(bookId, bookData);
+    } catch (error) {
+        console.log(error);
+    }
+}
