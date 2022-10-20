@@ -34,9 +34,13 @@ router.get('/create', isAuth, (req, res) => {
 });
 
 router.post('/create', isAuth, async (req, res) => {
-    await housingService.create({ ...req.body, owner: req.user._id });
+    try {
+        await housingService.create({ ...req.body, owner: req.user._id });
 
-    res.redirect('/housing');
+        res.redirect('/housing');
+    } catch (error) {
+        res.render('housing/create', { error: error.message });
+    }
 });
 
 router.get('/:housingId/details', async (req, res) => {
