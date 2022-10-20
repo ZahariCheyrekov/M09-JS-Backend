@@ -32,4 +32,4 @@ const housingSchema = mongoose.Schema({
     },
 });
 
-exports.Housing('Housing', housingSchema);
+exports.Housing = mongoose.model('Housing', housingSchema);
