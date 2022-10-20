@@ -37,4 +37,10 @@ router.get('/:bookId/wish', async (req, res) => {
     res.redirect(`/books/${bookId}/details`);
 });
 
+router.get('/:bookId/delete', async (req, res) => {
+    await bookService.deleteBook(req.params.bookId);
+
+    res.redirect('/books');
+});
+
 module.exports = router;
