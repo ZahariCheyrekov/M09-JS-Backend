@@ -19,4 +19,12 @@ router.post('/create', async (req, res) => {
     res.redirect('/housing');
 });
 
+router.get('/:housingId/details', async (req, res) => {
+    const housing = await housingService.getHousing(req.params.housingId);
+
+    const isOwner = String(housing.owner) === req.user?._id;
+
+    res.render('housing/details', { ...housing, isOwner });
+});
+
 module.exports = router;
