@@ -33,4 +33,10 @@ router.get('/:housingId/details', async (req, res) => {
     res.render('housing/details', { ...housingData, isOwner, isAvailable, isRented, tenants });
 });
 
+router.get('/:housingId/rent', async (req, res) => {
+    await housingService.addTenant(req.params.housingId, req.user._id);
+
+    res.redirect(`/housing/${req.params.housingId}/details`);
+});
+
 module.exports = router;
