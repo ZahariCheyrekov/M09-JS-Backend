@@ -30,6 +30,10 @@ const housingSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    owner: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 exports.Housing = mongoose.model('Housing', housingSchema);
