@@ -37,7 +37,12 @@ exports.create = async (housingData) => {
 
 exports.addTenant = async (housingId, tenantId) => {
     try {
-        return await Housing.findOneAndUpdate({ _id: housingId }, { $push: { tenants: tenantId } });
+        return await Housing.findOneAndUpdate(
+            { _id: housingId },
+            {
+                $push: { tenants: tenantId },
+                $inc: { availablePieces: -1 }
+            });
     } catch (error) {
 
     }
