@@ -29,20 +29,28 @@ exports.getTopHousings = async () => {
 
 exports.create = async (housingData) => {
     try {
-        return await Housing.create(housingData);
+        return Housing.create(housingData);
     } catch (error) {
 
     }
 }
 
-exports.addTenant = async (housingId, tenantId) => {
+exports.addTenant = (housingId, tenantId) => {
     try {
-        return await Housing.findOneAndUpdate(
+        return Housing.findOneAndUpdate(
             { _id: housingId },
             {
                 $push: { tenants: tenantId },
                 $inc: { availablePieces: -1 }
             });
+    } catch (error) {
+
+    }
+}
+
+exports.delete = async (housingId) => {
+    try {
+        await Housing.findByIdAndDelete(housingId);
     } catch (error) {
 
     }
