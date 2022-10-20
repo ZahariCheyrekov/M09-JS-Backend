@@ -12,4 +12,10 @@ router.get('/create', (req, res) => {
     res.render('book/create');
 });
 
+router.post('/create', async (req, res) => {
+    await bookService.createBook({ ...req.body, owner: req.user._id });
+
+    res.redirect('/books');
+});
+
 module.exports = router;
