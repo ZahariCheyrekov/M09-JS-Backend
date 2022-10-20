@@ -37,3 +37,11 @@ exports.wishBook = async (bookId, userId) => {
         console.log(error);
     }
 }
+
+exports.deleteBook = async (bookId) => {
+    try {
+        await Book.findByIdAndDelete(bookId);
+    } catch (error) {
+        console.log(error);
+    }
+}
