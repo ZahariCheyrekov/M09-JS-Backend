@@ -12,9 +12,9 @@ router.get('/create', (req, res) => {
 
 router.post('/create', async (req, res) => {
     console.log(req.body);
-    const housing = await housingService.create(req.body);
+    const housing = await housingService.create({ ...req.body, owner: req.user._id });
 
-    res.redirect('/');
+    res.redirect('/housing');
 });
 
 module.exports = router;
