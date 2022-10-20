@@ -27,6 +27,14 @@ exports.getTopHousings = async () => {
     }
 }
 
+exports.search = async (query) => {
+    try {
+        return await Housing.find({ type: { $regex: query, $options: 'i' } }).lean();
+    } catch (error) {
+
+    }
+}
+
 exports.create = async (housingData) => {
     try {
         return Housing.create(housingData);
