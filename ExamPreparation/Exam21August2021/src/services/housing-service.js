@@ -1,10 +1,18 @@
 const { Housing } = require('../models/Housing');
 
+exports.getAll = async () => {
+    try {
+        const housings = await Housing.find().lean();
+        return housings;
+    } catch (error) {
+
+    }
+}
 
 exports.getTopHousings = async () => {
     try {
         const housings = await Housing.find().sort({ createdAt: -1 }).limit(3).lean();
-        return housings
+        return housings;
     } catch (error) {
 
     }
