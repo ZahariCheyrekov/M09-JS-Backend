@@ -1,5 +1,14 @@
 const { Housing } = require('../models/Housing');
 
+exports.getHousing = async (housingId) => {
+    try {
+        const housing = await Housing.findById(housingId).lean();
+        return housing;
+    } catch (error) {
+
+    }
+}
+
 exports.getAll = async () => {
     try {
         const housings = await Housing.find().lean();
