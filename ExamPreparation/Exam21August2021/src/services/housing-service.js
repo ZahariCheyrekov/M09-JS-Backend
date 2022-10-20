@@ -55,3 +55,11 @@ exports.delete = async (housingId) => {
 
     }
 }
+
+exports.edit = async (housingId, housingData) => {
+    try {
+        await Housing.findByIdAndUpdate(housingId, housingData);
+    } catch (error) {
+
+    }
+}
