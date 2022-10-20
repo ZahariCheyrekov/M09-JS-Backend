@@ -24,6 +24,14 @@ exports.createBook = async (bookData) => {
     }
 }
 
+exports.getWishBooks = async (userId) => {
+    try {
+        return await Book.find({ wishingList: { $in: userId } }).lean();
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 exports.wishBook = async (bookId, userId) => {
     try {
         await Book.findOneAndUpdate(
