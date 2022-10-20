@@ -13,8 +13,7 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
-    console.log(req.body);
-    const housing = await housingService.create({ ...req.body, owner: req.user._id });
+    await housingService.create({ ...req.body, owner: req.user._id });
 
     res.redirect('/housing');
 });
@@ -37,6 +36,12 @@ router.get('/:housingId/rent', async (req, res) => {
     await housingService.addTenant(req.params.housingId, req.user._id);
 
     res.redirect(`/housing/${req.params.housingId}/details`);
+});
+
+router.get('/:housingId/delete', async (req, res) => {
+    await housingService.delete(req.params.housingId);
+
+    res.redirect('/housing');
 });
 
 module.exports = router;
