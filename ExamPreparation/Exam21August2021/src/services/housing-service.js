@@ -2,7 +2,7 @@ const { Housing } = require('../models/Housing');
 
 exports.getHousing = async (housingId) => {
     try {
-        const housing = await Housing.findById(housingId).lean();
+        const housing = await Housing.findById(housingId).populate('tenants');
         return housing;
     } catch (error) {
 
