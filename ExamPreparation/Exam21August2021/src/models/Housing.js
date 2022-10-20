@@ -34,6 +34,8 @@ const housingSchema = mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'User'
     }
+}, {
+    timestamps: true
 });
 
 exports.Housing = mongoose.model('Housing', housingSchema);
