@@ -15,7 +15,6 @@ exports.auth = (req, res, next) => {
             .catch(err => {
                 res.clearCookie(COOKIE_NAME);
                 res.redirect('/auth/login')
-                // res.status(401).render('404');
             });
     } else {
         next();
@@ -27,5 +26,13 @@ exports.isAuth = (req, res, next) => {
         next();
     } else {
         res.redirect('/auth/login');
+    }
+}
+
+exports.isGuest = (req, res, next) => {
+    if (req.user) {
+        res.redirect('/'); 
+    } else {
+        next();
     }
 }
