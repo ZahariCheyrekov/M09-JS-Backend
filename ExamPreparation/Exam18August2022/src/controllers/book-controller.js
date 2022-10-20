@@ -37,6 +37,21 @@ router.get('/:bookId/wish', async (req, res) => {
     res.redirect(`/books/${bookId}/details`);
 });
 
+router.get('/:bookId/edit', async (req, res) => {
+    const book = await bookService.getBookById(req.params.bookId);
+
+    res.render('book/edit', { ...book.toObject() });
+});
+
+router.post('/:bookId/edit', async (req, res) => {
+    const bookId = req.params.bookId;
+    const bookData = req.body;
+
+    await bookService.editBook(bookId, bookData);
+
+    res.redirect(`/books/${bookId}/details`);
+});
+
 router.get('/:bookId/delete', async (req, res) => {
     await bookService.deleteBook(req.params.bookId);
 
