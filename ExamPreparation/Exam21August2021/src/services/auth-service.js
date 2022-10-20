@@ -34,5 +34,9 @@ exports.login = async ({ username, password }) => {
 }
 
 exports.register = async (userData) => {
-    await User.create(userData);
+    try {
+        await User.create(userData);
+    } catch (error) {
+
+    }
 }
