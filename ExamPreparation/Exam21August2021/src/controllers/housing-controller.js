@@ -20,11 +20,17 @@ router.post('/create', async (req, res) => {
 });
 
 router.get('/:housingId/details', async (req, res) => {
-    const housing = await housingService.getHousing(req.params.housingId);
+    let housing = await housingService.getHousing(req.params.housingId);
 
     const isOwner = String(housing.owner) === req.user?._id;
+    const isAvailable = housing.availablePieces > 0;
+    const isRented = housing.tenants.some(tenant => String(tenant._id) === req.user._id);
 
-    res.render('housing/details', { ...housing, isOwner });
+    const tenants = housing.getTenants();
+
+    const housingData = housing.toObject();
+
+    res.render('housing/details', { ...housingData, isOwner, isAvailable, isRented, tenants });
 });
 
 module.exports = router;
