@@ -32,10 +32,22 @@ router.get('/:housingId/details', async (req, res) => {
     res.render('housing/details', { ...housingData, isOwner, isAvailable, isRented, tenants });
 });
 
-router.get('/:housingId/rent', async (req, res) => {
+const isOwner = async (req, res, next) => {
+    const housing = await housingService.getHousing(req.params.housingId);
+
+    if (String(housing.owner) === req.user._id) {
+        res.redirect(`/housing/${req.params.housingId}/details`);
+    } else {
+        next();
+    }
+}
+
+router.get('/:housingId/rent', isOwner, async (req, res) => {
     await housingService.addTenant(req.params.housingId, req.user._id);
 
-    res.redirect(`/housing/${req.params.housingId}/details`);
+    if (req.params)
+
+        res.redirect(`/housing/${req.params.housingId}/details`);
 });
 
 router.get('/:housingId/delete', async (req, res) => {
