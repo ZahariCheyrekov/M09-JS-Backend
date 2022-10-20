@@ -42,7 +42,9 @@ exports.addTenant = (housingId, tenantId) => {
             {
                 $push: { tenants: tenantId },
                 $inc: { availablePieces: -1 }
-            });
+            },
+            { runValidators: true }
+        );
     } catch (error) {
 
     }
