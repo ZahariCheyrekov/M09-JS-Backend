@@ -18,7 +18,7 @@ exports.getAllBooks = async () => {
 
 exports.createBook = async (bookData) => {
     try {
-        await Book.create(bookData);
+        return await Book.create(bookData);
     } catch (error) {
         console.log(error);
     }
@@ -34,7 +34,7 @@ exports.getWishBooks = async (userId) => {
 
 exports.wishBook = async (bookId, userId) => {
     try {
-        await Book.findOneAndUpdate(
+        return await Book.findOneAndUpdate(
             { _id: bookId },
             {
                 $push: { wishingList: userId },
@@ -48,7 +48,7 @@ exports.wishBook = async (bookId, userId) => {
 
 exports.deleteBook = async (bookId) => {
     try {
-        await Book.findByIdAndDelete(bookId);
+        return await Book.findByIdAndDelete(bookId);
     } catch (error) {
         console.log(error);
     }
@@ -56,7 +56,7 @@ exports.deleteBook = async (bookId) => {
 
 exports.editBook = async (bookId, bookData) => {
     try {
-        await Book.findByIdAndUpdate(bookId, bookData);
+        return await Book.findByIdAndUpdate(bookId, bookData);
     } catch (error) {
         console.log(error);
     }
