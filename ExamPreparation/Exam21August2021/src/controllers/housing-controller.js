@@ -1,6 +1,27 @@
 const router = require('express').Router();
 
+const { isAuth } = require('../middlewares/auth-middleware');
 const housingService = require('../services/housing-service');
+
+const isOwner = async (req, res, next) => {
+    const housing = await housingService.getHousing(req.params.housingId);
+
+    if (String(housing.owner) === req.user._id) {
+        res.redirect(`/housing/${req.params.housingId}/details`);
+    } else {
+        next();
+    }
+}
+
+const isntOwner = async (req, res, next) => {
+    const housing = await housingService.getHousing(req.params.housingId);
+
+    if (String(housing.owner) !== req.user._id) {
+        next();
+    } else {
+        res.redirect(`/housing/${req.params.housingId}/details`);
+    }
+}
 
 router.get('/', async (req, res) => {
     const housings = await housingService.getAll();
@@ -8,11 +29,11 @@ router.get('/', async (req, res) => {
     res.render('housing', { housings });
 });
 
-router.get('/create', (req, res) => {
+router.get('/create', isAuth, (req, res) => {
     res.render('housing/create');
 });
 
-router.post('/create', async (req, res) => {
+router.post('/create', isAuth, async (req, res) => {
     await housingService.create({ ...req.body, owner: req.user._id });
 
     res.redirect('/housing');
@@ -32,16 +53,6 @@ router.get('/:housingId/details', async (req, res) => {
     res.render('housing/details', { ...housingData, isOwner, isAvailable, isRented, tenants });
 });
 
-const isOwner = async (req, res, next) => {
-    const housing = await housingService.getHousing(req.params.housingId);
-
-    if (String(housing.owner) === req.user._id) {
-        res.redirect(`/housing/${req.params.housingId}/details`);
-    } else {
-        next();
-    }
-}
-
 router.get('/:housingId/rent', isOwner, async (req, res) => {
     await housingService.addTenant(req.params.housingId, req.user._id);
 
@@ -50,22 +61,23 @@ router.get('/:housingId/rent', isOwner, async (req, res) => {
         res.redirect(`/housing/${req.params.housingId}/details`);
 });
 
-router.get('/:housingId/delete', async (req, res) => {
+router.get('/:housingId/delete', isntOwner, async (req, res) => {
     await housingService.delete(req.params.housingId);
 
     res.redirect('/housing');
 });
 
-router.get('/:housingId/edit', async (req, res) => {
+router.get('/:housingId/edit', isntOwner, isntOwner, async (req, res) => {
     const housing = await housingService.getHousing(req.params.housingId);
 
     res.render('housing/edit', { ...housing.toObject() });
 });
 
-router.post('/:housingId/edit', async (req, res) => {
+router.post('/:housingId/edit', isntOwner, async (req, res) => {
     await housingService.edit(req.params.housingId, req.body);
 
     res.redirect(`/housing/${req.params.housingId}/details`);
 });
+
 
 module.exports = router;
