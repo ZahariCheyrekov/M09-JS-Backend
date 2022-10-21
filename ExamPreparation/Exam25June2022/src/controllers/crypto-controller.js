@@ -37,4 +37,10 @@ router.get('/:coinId/buy', async (req, res) => {
     res.redirect(`/crypto/${coinId}/details`);
 });
 
+router.get('/:coinId/delete', async (req, res) => {
+    cryptoService.deleteCoin(req.params.coinId);
+    
+    res.redirect('/crypto');
+});
+
 module.exports = router;
