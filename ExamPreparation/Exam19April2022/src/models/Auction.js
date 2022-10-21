@@ -12,7 +12,7 @@ const auctionSchema = mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['Vehicles', 'Real Estate', 'Electronics', 'Furniture', 'Other'],
+        enum: ['vehicles', 'estate', 'electronics', 'furniture', 'other'],
         required: true
     },
     imageUrl: {
