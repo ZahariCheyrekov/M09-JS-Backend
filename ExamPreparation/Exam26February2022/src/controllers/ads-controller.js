@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+const { isAuth } = require('../middlewares/auth-middleware');
 const adsService = require('../services/ads-service');
 const authService = require('../services/auth-service');
 
@@ -13,7 +14,7 @@ router.get('/create', (req, res) => {
     res.render('ads/create');
 });
 
-router.post('/create', async (req, res) => {
+router.post('/create', isAuth, async (req, res) => {
     try {
         await adsService.create(req.user._id, { ...req.body, author: req.user._id });
         res.redirect('/ads');
@@ -24,7 +25,7 @@ router.post('/create', async (req, res) => {
     }
 });
 
-router.get('/:adId/details', async (req, res) => {
+router.get('/:adId/details', isAuth, async (req, res) => {
     const ad = await adsService.getAd(req.params.adId);
     const { email } = await authService.getUser(ad.author);
 
@@ -34,7 +35,7 @@ router.get('/:adId/details', async (req, res) => {
     res.render('ads/details', { ...ad.toObject(), isOwner, email, appliedForJob });
 });
 
-router.get('/:addId/apply', async (req, res) => {
+router.get('/:addId/apply', isAuth, async (req, res) => {
     const adId = req.params.addId;
 
     await adsService.applyForJob(req.params.addId, req.user._id);
@@ -42,13 +43,13 @@ router.get('/:addId/apply', async (req, res) => {
     res.redirect(`/ads/${adId}/details`);
 });
 
-router.get('/:adId/edit', async (req, res) => {
+router.get('/:adId/edit', isAuth, async (req, res) => {
     const ad = await adsService.getAd(req.params.adId);
 
     res.render('ads/edit', { ...ad.toObject() });
 });
 
-router.post('/:adId/edit', async (req, res) => {
+router.post('/:adId/edit', isAuth, async (req, res) => {
     const adId = req.params.adId;
     const adData = req.body;
 
@@ -57,7 +58,7 @@ router.post('/:adId/edit', async (req, res) => {
     res.redirect(`/ads/${adId}/details`);
 });
 
-router.get('/:adId/delete', async (req, res) => {
+router.get('/:adId/delete', isAuth, async (req, res) => {
     await adsService.deleteAd(req.params.adId);
 
     res.redirect('/ads');
