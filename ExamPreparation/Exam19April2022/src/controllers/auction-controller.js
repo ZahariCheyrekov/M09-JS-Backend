@@ -30,7 +30,11 @@ router.post('/create', async (req, res) => {
 router.get('/:auctionId/details', async (req, res) => {
     const auction = await auctionService.getAuction(req.params.auctionId);
 
-    res.render('auction/details', { ...auction.toObject() });
+    const isOwner = String(auction.author) == req.user?._id;
+    const bidder = auction.bidder;
+    const placedByUser = String(auction.bidder) === req.user?._id;
+
+    res.render('auction/details', { ...auction.toObject(), isOwner, bidder, placedByUser });
 });
 
 module.exports = router;
