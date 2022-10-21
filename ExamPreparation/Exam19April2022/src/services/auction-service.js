@@ -11,3 +11,7 @@ exports.getAll = async () => {
 exports.create = async (auctionData) => {
     return await Auction.create(auctionData);
 }
+
+exports.deleteAuction = async (auctionId) => {
+    return await Auction.findByIdAndDelete(auctionId);
+}
