@@ -30,3 +30,7 @@ exports.applyForJob = async (adId, userId) => {
         { runValidators: true }
     );
 }
+
+exports.deleteAd = async (adId) => {
+    return await Ad.findByIdAndDelete(adId);
+}
