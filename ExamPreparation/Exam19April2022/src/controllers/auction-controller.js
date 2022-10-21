@@ -14,13 +14,23 @@ router.get('/create', (req, res) => {
 
 router.post('/create', async (req, res) => {
     try {
-        await auctionService.create({ ...req.body, author: req.user._id });
+        await auctionService.create({
+            ...req.body,
+            author: req.user._id,
+            publisherName: req.user.publisherName
+        });
         res.redirect('/auction');
 
     } catch (error) {
         const err = Object.values(error.errors)[0].properties.message;
         res.render('auction/create', { error: err });
     }
+});
+
+router.get('/:auctionId/details', async (req, res) => {
+    const auction = await auctionService.getAuction(req.params.auctionId);
+
+    res.render('auction/details', { ...auction.toObject() });
 });
 
 module.exports = router;
