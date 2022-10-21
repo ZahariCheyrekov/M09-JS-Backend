@@ -1,61 +1,33 @@
 const Crypto = require('../models/Crypto');
 
 exports.getCoin = async (coinId) => {
-    try {
-        return await Crypto.findById(coinId);
-    } catch (error) {
-        console.log(error);
-    }
+    return await Crypto.findById(coinId);
 }
 
 exports.getAllCoins = async () => {
-    try {
-        return await Crypto.find().lean();
-    } catch (error) {
-        console.log(error);
-    }
+    return await Crypto.find().lean();
 }
 
 exports.getCoinsByWallet = async (paymentMethod) => {
-    try {
-        return await Crypto.find({ paymentMethod: { $regex: paymentMethod, $options: 'i' } }).lean();
-    } catch (error) {
-        console.log(error);
-    }
+    return await Crypto.find({ paymentMethod: { $regex: paymentMethod, $options: 'i' } }).lean();
 }
 
 exports.create = async (cryptoData) => {
-    try {
-        await Crypto.create(cryptoData);
-    } catch (error) {
-        console.log(error);
-    }
+    await Crypto.create(cryptoData);
 }
 
 exports.buyCoin = async (coinId, userId) => {
-    try {
-        await Crypto.findByIdAndUpdate(
-            { _id: coinId },
-            { $push: { buyCrypto: userId } },
-            { runValidators: true }
-        );
-    } catch (error) {
-        console.log(error);
-    }
+    await Crypto.findByIdAndUpdate(
+        { _id: coinId },
+        { $push: { buyCrypto: userId } },
+        { runValidators: true }
+    );
 }
 
 exports.editCoin = async (coinId, coinData) => {
-    try {
-        await Crypto.findByIdAndUpdate(coinId, coinData);
-    } catch (error) {
-        console.log(error);
-    }
+    await Crypto.findByIdAndUpdate(coinId, coinData);
 }
 
 exports.deleteCoin = async (coinId) => {
-    try {
-        await Crypto.findByIdAndDelete(coinId);
-    } catch (error) {
-        console.log(error);
-    }
+    await Crypto.findByIdAndDelete(coinId);
 }
