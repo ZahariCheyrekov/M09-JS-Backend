@@ -26,7 +26,7 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-    const { email, password } = req.body;
+    const { email, firstName, lastName, password } = req.body;
 
     if (req.password !== req.rePassword) {
         res.locals.errors = 'Password mismatch!';
@@ -36,7 +36,7 @@ router.post('/register', async (req, res) => {
     try {
         await authService.register(req.body);
 
-        const token = await authService.login({ email, password });
+        const token = await authService.login({ email, firstName, lastName, password });
 
         res.cookie(COOKIE_NAME, token);
         res.redirect('/');
