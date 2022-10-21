@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../constants');
 const User = require('../models/User');
 
-exports.login = async ({ email, password }) => {
+exports.login = async ({ email, firstName, lastName, password }) => {
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -18,7 +18,8 @@ exports.login = async ({ email, password }) => {
 
     const payload = {
         _id: user.id,
-        email: user.email
+        email: user.email,
+        publisherName: `${firstName} ${lastName}`
     }
 
     const token = jwt.sign(payload, JWT_SECRET);
