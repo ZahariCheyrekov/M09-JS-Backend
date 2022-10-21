@@ -16,6 +16,14 @@ exports.getAllCoins = async () => {
     }
 }
 
+exports.getCoinsByWallet = async (paymentMethod) => {
+    try {
+        return await Crypto.find({ paymentMethod: { $regex: paymentMethod, $options: 'i' } }).lean();
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 exports.create = async (cryptoData) => {
     try {
         await Crypto.create(cryptoData);
