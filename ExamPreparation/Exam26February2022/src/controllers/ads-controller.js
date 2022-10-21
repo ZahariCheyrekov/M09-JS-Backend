@@ -31,8 +31,9 @@ router.get('/:adId/details', isAuth, async (req, res) => {
 
     const isOwner = String(ad.author) === req.user?._id;
     const appliedForJob = ad.usersApplied.some(applicant => String(applicant._id) === req.user._id);
+    const jobApplicants = await adsService.getUsersApplied(ad._id);
 
-    res.render('ads/details', { ...ad.toObject(), isOwner, email, appliedForJob });
+    res.render('ads/details', { ...ad.toObject(), isOwner, email, appliedForJob, jobApplicants });
 });
 
 router.get('/:addId/apply', isAuth, async (req, res) => {
@@ -63,5 +64,21 @@ router.get('/:adId/delete', isAuth, async (req, res) => {
 
     res.redirect('/ads');
 });
+
+router.get('/search', isAuth, async (req, res) => {
+    const ads = await adsService.getAll();
+    const email = req.user.email;
+
+    res.render('ads/search', { ads, email });
+});
+
+router.post('/search', isAuth, async (req, res) => {
+    const userId = req.user._id
+    const email = req.user.email;
+
+    const ads = await adsService.getAdsByEmail(userId);
+
+    res.render('ads/search', { ads, email });
+})
 
 module.exports = router;

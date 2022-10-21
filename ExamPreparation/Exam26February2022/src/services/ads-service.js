@@ -1,6 +1,8 @@
 const Ad = require('../models/Ad');
 const User = require('../models/User');
 
+const userService = require('./auth-service');
+
 exports.getAd = async (adId) => {
     return await Ad.findById(adId);
 }
@@ -11,6 +13,25 @@ exports.getAll = async () => {
 
 exports.getTopAds = async () => {
     return await Ad.find().sort({ createdAt: -1 }).limit(3).lean();
+}
+
+exports.getAdsByEmail = async (email) => {
+    return await Ad.find({ author: email }).lean();
+}
+
+exports.getUsersApplied = async (adId) => {
+    const ad = await this.getAd(adId);
+    const usersApplied = ad.usersApplied;
+
+    const users = [];
+
+    for (const user of usersApplied) {
+        const { email, description } = await userService.getUser(user);
+
+        users.push({ email, description });
+    }
+    
+    return users;
 }
 
 exports.create = async (userId, adData) => {
