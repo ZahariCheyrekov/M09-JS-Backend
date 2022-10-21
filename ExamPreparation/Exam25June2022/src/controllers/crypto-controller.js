@@ -37,9 +37,24 @@ router.get('/:coinId/buy', async (req, res) => {
     res.redirect(`/crypto/${coinId}/details`);
 });
 
+router.get('/:coinId/edit', async (req, res) => {
+    const coin = await cryptoService.getCoin(req.params.coinId);
+
+    res.render('crypto/edit', { ...coin.toObject() });
+});
+
+router.post('/:coinId/edit', async (req, res) => {
+    const coinId = req.params.coinId;
+    const coinData = req.body;
+
+    await cryptoService.editCoin(coinId, coinData);
+
+    res.redirect(`/crypto/${coinId}/details`);
+});
+
 router.get('/:coinId/delete', async (req, res) => {
     cryptoService.deleteCoin(req.params.coinId);
-    
+
     res.redirect('/crypto');
 });
 
