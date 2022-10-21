@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+const { isAuth } = require('../middlewares/auth-middleware');
 const cryptoService = require('../services/crypto-service');
 
 router.get('/', async (req, res) => {
@@ -8,14 +9,18 @@ router.get('/', async (req, res) => {
     res.render('crypto', { coins });
 });
 
-router.get('/create', (req, res) => {
+router.get('/create', isAuth, (req, res) => {
     res.render('crypto/create');
 });
 
-router.post('/create', async (req, res) => {
-    await cryptoService.create({ ...req.body, owner: req.user._id });
-
-    res.redirect('/crypto');
+router.post('/create', isAuth, async (req, res) => {
+    try {
+        await cryptoService.create({ ...req.body, owner: req.user._id });
+        res.redirect('/crypto');
+    } catch (error) {
+        const err = Object.values(error.errors)[0].properties.message;
+        res.render('crypto/create', { error: err });
+    }
 });
 
 router.get('/:coinId/details', async (req, res) => {
