@@ -27,6 +27,10 @@ const auctionSchema = mongoose.Schema({
         },
         required: true
     },
+    publisherName: {
+        type: String,
+        required: true
+    },
     author: {
         type: mongoose.Types.ObjectId,
         ref: 'User',
