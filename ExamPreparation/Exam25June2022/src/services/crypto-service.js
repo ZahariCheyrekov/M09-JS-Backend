@@ -23,3 +23,15 @@ exports.create = async (cryptoData) => {
         console.log(error);
     }
 }
+
+exports.buyCoin = async (coinId, userId) => {
+    try {
+        await Crypto.findByIdAndUpdate(
+            { _id: coinId },
+            { $push: { buyCrypto: userId } },
+            { runValidators: true }
+        );
+    } catch (error) {
+        console.log(error);
+    }
+}
