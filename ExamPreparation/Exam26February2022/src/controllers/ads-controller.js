@@ -28,7 +28,9 @@ router.get('/:adId/details', async (req, res) => {
     const ad = await adsService.getAd(req.params.adId);
     const { email } = await authService.getUser(ad.author);
 
-    res.render('ads/details', { ...ad.toObject(), email });
+    const isOwner = String(ad.author) === req.user?._id;
+
+    res.render('ads/details', { ...ad.toObject(), isOwner, email });
 });
 
 module.exports = router;
