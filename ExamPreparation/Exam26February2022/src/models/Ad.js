@@ -27,6 +27,8 @@ const adSchema = mongoose.Schema({
             ref: 'User'
         }
     ]
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('Ad', adSchema);
