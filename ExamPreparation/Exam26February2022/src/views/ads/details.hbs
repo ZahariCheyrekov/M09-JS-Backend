@@ -16,16 +16,17 @@
       <h5>Location: {{location}}</h5>
 
       <article class="details-page-card-buttons">
-        <!--only for registered users and author of the ad-->
-        <!--<a href="#" class="btn-edit">Edit</a>
-                            <a href="#" class="btn-delete">Delete</a>-->
-
-        <!--logged in user who did not apply for current ad-->
-        <!--<a href="#" class="btn-apply">Apply now!</a>
-                            <p class="applied-people">Hurry up, 1 people have already applied.</p>-->
-
-        <!--logged in user who has already applied for current ad-->
-        <!--<p class="already-applied">You have already applied!</p>-->
+        {{#if isOwner}}
+          <a href="/ads/{{_id}}/edit" class="btn-edit">Edit</a>
+          <a href="/ads/{{_id}}/delete" class="btn-delete">Delete</a>
+        {{else if user}}
+          {{#if appliedForJob}}
+              <p class="already-applied">You have already applied!</p>
+            {{else}}
+              <a href="#" class="btn-apply">Apply now!</a>
+              <p class="applied-people">Hurry up, 1 people have already applied.</p>
+          {{/if}}
+        {{/if}}
       </article>
     </article>
 
