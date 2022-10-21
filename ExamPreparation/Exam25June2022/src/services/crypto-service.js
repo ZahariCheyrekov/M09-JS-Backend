@@ -35,3 +35,11 @@ exports.buyCoin = async (coinId, userId) => {
         console.log(error);
     }
 }
+
+exports.deleteCoin = async (coinId) => {
+    try {
+        await Crypto.findByIdAndDelete(coinId);
+    } catch (error) {
+        console.log(error);
+    }
+}
