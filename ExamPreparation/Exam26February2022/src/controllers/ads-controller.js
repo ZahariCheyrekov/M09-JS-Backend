@@ -42,6 +42,21 @@ router.get('/:addId/apply', async (req, res) => {
     res.redirect(`/ads/${adId}/details`);
 });
 
+router.get('/:adId/edit', async (req, res) => {
+    const ad = await adsService.getAd(req.params.adId);
+
+    res.render('ads/edit', { ...ad.toObject() });
+});
+
+router.post('/:adId/edit', async (req, res) => {
+    const adId = req.params.adId;
+    const adData = req.body;
+
+    await adsService.editAd(adId, adData);
+
+    res.redirect(`/ads/${adId}/details`);
+});
+
 router.get('/:adId/delete', async (req, res) => {
     await adsService.deleteAd(req.params.adId);
 
