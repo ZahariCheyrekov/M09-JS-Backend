@@ -58,4 +58,16 @@ router.get('/:coinId/delete', async (req, res) => {
     res.redirect('/crypto');
 });
 
+router.get('/search', async (req, res) => {
+    const coins = await cryptoService.getAllCoins();
+
+    res.render('crypto/search', { coins });
+});
+
+router.post('/search', async (req, res) => {
+    const coins = await cryptoService.getCoinsByWallet(req.body.paymentMethod);
+
+    res.render('crypto/search', { coins });
+});
+
 module.exports = router;
