@@ -37,7 +37,8 @@ const auctionSchema = mongoose.Schema({
         required: true
     },
     bidder: {
-        type: mongoose.Types.ObjectId,
+        type: String,
+        default: '',
         ref: 'User',
     }
 });
