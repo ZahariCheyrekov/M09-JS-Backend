@@ -37,4 +37,10 @@ router.get('/:auctionId/details', async (req, res) => {
     res.render('auction/details', { ...auction.toObject(), isOwner, bidder, placedByUser });
 });
 
+router.get('/:auctionId/delete', async (req, res) => {
+    await auctionService.deleteAuction(req.params.auctionId);
+
+    res.redirect('/auction');
+});
+
 module.exports = router;
