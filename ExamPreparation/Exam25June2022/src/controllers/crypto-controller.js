@@ -13,9 +13,19 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
-    await cryptoService.create(req.body);
+    await cryptoService.create({ ...req.body, owner: req.user._id });
 
     res.redirect('/crypto');
+});
+
+router.get('/:coinId/details', async (req, res) => {
+    const coin = await cryptoService.getCoin(req.params.coinId);
+    const userId = req.user?._id;
+
+    const isOwner = String(coin.owner) === userId;
+    const boughtCrypto = coin.buyCrypto.some(buyer => String(buyer._id) === userId);
+
+    res.render('crypto/details', { ...coin.toObject(), isOwner, boughtCrypto });
 });
 
 module.exports = router;
