@@ -42,4 +42,10 @@ router.get('/:addId/apply', async (req, res) => {
     res.redirect(`/ads/${adId}/details`);
 });
 
+router.get('/:adId/delete', async (req, res) => {
+    await adsService.deleteAd(req.params.adId);
+
+    res.redirect('/ads');
+});
+
 module.exports = router;
