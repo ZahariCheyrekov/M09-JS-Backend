@@ -36,6 +36,14 @@ exports.buyCoin = async (coinId, userId) => {
     }
 }
 
+exports.editCoin = async (coinId, coinData) => {
+    try {
+        await Crypto.findByIdAndUpdate(coinId, coinData);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 exports.deleteCoin = async (coinId) => {
     try {
         await Crypto.findByIdAndDelete(coinId);
