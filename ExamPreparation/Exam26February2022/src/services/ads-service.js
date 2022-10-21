@@ -31,6 +31,10 @@ exports.applyForJob = async (adId, userId) => {
     );
 }
 
+exports.editAd = async (adId, adData) => {
+    return await Ad.findByIdAndUpdate(adId, adData);
+}
+
 exports.deleteAd = async (adId) => {
     return await Ad.findByIdAndDelete(adId);
 }
