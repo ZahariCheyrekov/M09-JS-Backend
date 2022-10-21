@@ -1,5 +1,13 @@
 const Crypto = require('../models/Crypto');
 
+exports.getCoin = async (coinId) => {
+    try {
+        return await Crypto.findById(coinId);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 exports.getAllCoins = async () => {
     try {
         return await Crypto.find().lean();
