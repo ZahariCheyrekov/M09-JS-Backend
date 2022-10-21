@@ -16,14 +16,26 @@
           <li><a href="#">All Crypto</a></li>
           <li><a href="#">Search</a></li>
           <li><a href="#">Create Offer</a></li>
-          <li><a href="#">Login</a></li>
-          <li><a href="#">Register</a></li>
-          <li><a href="#">Logout</a></li>
+          <li><a href="/auth/login">Login</a></li>
+          <li><a href="/auth/register">Register</a></li>
+          <li><a href="/auth/logout">Logout</a></li>
         </ul>
       </nav>
     </header>
 
-    {{{body}}}
+    <main>
+      <!-- In case of error, you should display div with class "errorContainer" -->
+      <!-- You can choose to display the first error or all of them (error message/s in your opinion) -->
+
+      <!-- <div>
+            <div class="errorContainer">
+                <p>Error</p>
+            </div>
+        </div> -->
+
+      {{{body}}}
+
+    </main>
 
     <footer>
       <p>Back-End 2022</p>
