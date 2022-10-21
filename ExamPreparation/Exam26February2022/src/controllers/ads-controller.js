@@ -29,8 +29,17 @@ router.get('/:adId/details', async (req, res) => {
     const { email } = await authService.getUser(ad.author);
 
     const isOwner = String(ad.author) === req.user?._id;
+    const appliedForJob = ad.usersApplied.some(applicant => String(applicant._id) === req.user._id);
 
-    res.render('ads/details', { ...ad.toObject(), isOwner, email });
+    res.render('ads/details', { ...ad.toObject(), isOwner, email, appliedForJob });
+});
+
+router.get('/:addId/apply', async (req, res) => {
+    const adId = req.params.addId;
+
+    await adsService.applyForJob(req.params.addId, req.user._id);
+
+    res.redirect(`/ads/${adId}/details`);
 });
 
 module.exports = router;

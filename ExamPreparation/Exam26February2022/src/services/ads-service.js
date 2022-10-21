@@ -22,3 +22,11 @@ exports.create = async (userId, adData) => {
         { runValidators: true }
     );
 }
+
+exports.applyForJob = async (adId, userId) => {
+    return await Ad.findByIdAndUpdate(
+        { _id: adId },
+        { $push: { usersApplied: userId } },
+        { runValidators: true }
+    );
+}
