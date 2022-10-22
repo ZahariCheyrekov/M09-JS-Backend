@@ -20,5 +20,12 @@ exports.createTrip = async (userId, tripData) => {
 }
 
 exports.joinTrip = async (userEmail, tripId) => {
-
+    return await Trip.findByIdAndUpdate(
+        { _id: tripId },
+        {
+            $push: { buddies: userEmail },
+            $inc: { seats: -1 }
+        },
+        { runValidators: true }
+    )
 }
