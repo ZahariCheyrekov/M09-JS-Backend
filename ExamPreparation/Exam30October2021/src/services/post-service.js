@@ -16,3 +16,7 @@ exports.createPost = async (userId, postData) => {
         { runValidators: true }
     );
 }
+
+exports.deletePost = async (postId) => {
+    return await Post.findByIdAndDelete(postId);
+}
