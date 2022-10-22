@@ -1,6 +1,10 @@
 const Trip = require('../models/Trip');
 const User = require('../models/User');
 
+exports.getTrip = async (tripId) => {
+    return await Trip.findById(tripId);
+}
+
 exports.getTrips = async () => {
     return await Trip.find().lean();
 }
@@ -13,4 +17,8 @@ exports.createTrip = async (userId, tripData) => {
         { $push: { tripsHistory: trip._id } },
         { runValidators: true }
     );
+}
+
+exports.joinTrip = async (userEmail, tripId) => {
+
 }
