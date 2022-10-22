@@ -11,6 +11,10 @@ exports.getAll = async () => {
     return await Post.find().lean();
 }
 
+exports.getUserPosts = async (userId) => {
+    return await Post.find({ author: userId }).lean();
+}
+
 exports.getPeopleEmails = async (postId) => {
     const emails = [];
 
