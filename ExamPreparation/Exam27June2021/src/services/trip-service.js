@@ -30,6 +30,10 @@ exports.joinTrip = async (userEmail, tripId) => {
     )
 }
 
+exports.editTrip = async (tripId, tripData) => {
+    return await Trip.findByIdAndUpdate(tripId, tripData);
+}
+
 exports.deleteTrip = async (tripId) => {
     return await Trip.findByIdAndDelete(tripId);
 }
