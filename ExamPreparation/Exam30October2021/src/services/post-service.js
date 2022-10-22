@@ -56,6 +56,10 @@ exports.downvote = async (postId, userId) => {
     );
 }
 
+exports.editPost = async (postId, postData) => {
+    return await Post.findByIdAndUpdate(postId, postData);
+}
+
 exports.deletePost = async (postId) => {
     return await Post.findByIdAndDelete(postId);
 }
