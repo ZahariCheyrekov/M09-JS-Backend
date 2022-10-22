@@ -28,4 +28,10 @@ router.post('/create', async (req, res) => {
     }
 });
 
+
+router.get('/:postId/delete', async (req, res) => {
+    await postService.deletePost(req.params.postId);
+
+    res.redirect('/post');
+});
 module.exports = router;
