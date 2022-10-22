@@ -77,6 +77,12 @@ router.post('/:postId/edit', isAuth, async (req, res) => {
     res.redirect(`/posts/${postId}/details`);
 });
 
+router.get('/my-posts', isAuth, async (req, res) => {
+    const posts = await postService.getUserPosts(req.user._id);
+
+    res.render('posts/my-posts', { posts });
+});
+
 router.get('/:postId/delete', isAuth, async (req, res) => {
     await postService.deletePost(req.params.postId);
 
