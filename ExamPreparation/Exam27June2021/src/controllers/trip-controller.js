@@ -52,6 +52,21 @@ router.get('/:tripId/join', async (req, res) => {
     res.redirect(`/trip/${tripId}/details`);
 });
 
+router.get('/:tripId/edit', async (req, res) => {
+    const trip = await tripService.getTrip(req.params.tripId);
+
+    res.render('trip/edit', { ...trip.toObject() });
+})
+
+router.post('/:tripId/edit', async (req, res) => {
+    const tripId = req.params.tripId;
+    const tripData = req.body;
+
+    await tripService.editTrip(tripId, tripData);
+
+    res.redirect(`/trip/${tripId}/details`);
+});
+
 router.get('/:tripId/delete', async (req, res) => {
     await tripService.deleteTrip(req.params.tripId);
 
