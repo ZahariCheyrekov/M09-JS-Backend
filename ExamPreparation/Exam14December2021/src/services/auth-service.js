@@ -2,13 +2,27 @@ const jwt = require('jsonwebtoken');
 
 const { JWT_SECRET } = require('../constants');
 const User = require('../models/User');
+const galleryService = require('../services/gallery-service');
 
 exports.getUser = async (userId) => {
     return await User.findById(userId);
 }
 
+exports.getUserPublications = async (userId) => {
+    const publications = [];
+
+    const { myPublications } = await this.getUser(userId);
+
+    for (const currentPublication of myPublications) {
+        const publicationTitle = await galleryService.getPublicationTitle(currentPublication);
+        publications.push(publicationTitle);
+    }
+
+    return publications.join(', ');
+}
+
 exports.login = async ({ username, password }) => {
-    const user = await User.findOne({ username});
+    const user = await User.findOne({ username });
 
     if (!user) {
         throw new Error('Invalid email or password');

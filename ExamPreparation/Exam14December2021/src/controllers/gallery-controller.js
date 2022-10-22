@@ -61,6 +61,15 @@ router.post('/:publicationId/edit', isAuth, async (req, res) => {
     res.redirect(`/gallery/${publicationId}/details`);
 });
 
+router.get('/profile', isAuth, async (req, res) => {
+    const user = await authService.getUser(req.user._id);
+
+    const publications = await authService.getUserPublications(req.user._id);
+    const userPublications = await authService.getUserPublications(req.user._id);
+
+    res.render('gallery/profile', { ...user.toObject(), publications, userPublications });
+});
+
 router.get('/:publicationId/delete', isAuth, async (req, res) => {
     await galleryService.deletePublication(req.params.publicationId);
 
