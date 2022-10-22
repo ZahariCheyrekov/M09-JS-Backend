@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 const tripService = require('../services/trip-service');
 const userService = require('../services/auth-service');
+const { isAuth } = require('../middlewares/auth-middleware');
 
 router.get('/', async (req, res) => {
     const trips = await tripService.getTrips();
@@ -9,11 +10,11 @@ router.get('/', async (req, res) => {
     res.render('trip', { trips });
 });
 
-router.get('/offer', async (req, res) => {
+router.get('/offer', isAuth, async (req, res) => {
     res.render('trip/offer');
 });
 
-router.post('/offer', async (req, res) => {
+router.post('/offer', isAuth, async (req, res) => {
     try {
         await tripService.createTrip(req.user._id, { ...req.body, creator: req.user._id });
         res.redirect('/trip');
@@ -45,20 +46,20 @@ router.get('/:tripId/details', async (req, res) => {
     });
 });
 
-router.get('/:tripId/join', async (req, res) => {
+router.get('/:tripId/join', isAuth, async (req, res) => {
     const tripId = req.params.tripId;
     await tripService.joinTrip(req.user.email, tripId);
 
     res.redirect(`/trip/${tripId}/details`);
 });
 
-router.get('/:tripId/edit', async (req, res) => {
+router.get('/:tripId/edit', isAuth, async (req, res) => {
     const trip = await tripService.getTrip(req.params.tripId);
 
     res.render('trip/edit', { ...trip.toObject() });
 })
 
-router.post('/:tripId/edit', async (req, res) => {
+router.post('/:tripId/edit', isAuth, async (req, res) => {
     const tripId = req.params.tripId;
     const tripData = req.body;
 
@@ -67,7 +68,7 @@ router.post('/:tripId/edit', async (req, res) => {
     res.redirect(`/trip/${tripId}/details`);
 });
 
-router.get('/:tripId/delete', async (req, res) => {
+router.get('/:tripId/delete', isAuth, async (req, res) => {
     await tripService.deleteTrip(req.params.tripId);
 
     res.redirect('/trip');
