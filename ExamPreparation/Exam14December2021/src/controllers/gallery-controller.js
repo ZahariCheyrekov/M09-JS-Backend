@@ -34,8 +34,15 @@ router.get('/:publicationId/details', async (req, res) => {
     const { username: authorName } = await authService.getUser(req.user?._id);
 
     const isOwner = String(publication.author) === req.user?._id;
+    const isShared = publication.usersShared.some(user => String(user) === req.user?._id);
 
-    res.render('gallery/details', { ...publication.toObject(), authorName, isOwner });
+    res.render('gallery/details', { ...publication.toObject(), authorName, isOwner, isShared });
+});
+
+router.get('/:publicationId/share', async (req, res) => {
+    await galleryService.sharePublication(req.params.publicationId, req.user._id);
+
+    res.redirect('/');
 });
 
 router.get('/:publicationId/delete', async (req, res) => {
