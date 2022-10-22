@@ -20,8 +20,13 @@ router.post('/offer', isAuth, async (req, res) => {
         res.redirect('/trip');
 
     } catch (error) {
-        const err = Object.values(error.errors)[0].properties.message;
-        res.render('crypto/create', { error: err });
+        const errors = [];
+
+        for (const { properties } of Object.values(error.errors)) {
+            errors.push({ 'error': properties.message });
+        }
+
+        res.render('trip/offer', { errors });
     }
 });
 
@@ -66,6 +71,13 @@ router.post('/:tripId/edit', isAuth, async (req, res) => {
     await tripService.editTrip(tripId, tripData);
 
     res.redirect(`/trip/${tripId}/details`);
+});
+
+router.get('/profile', isAuth, async (req, res) => {
+    const trips = await tripService.getUserTrips(req.user?._id);
+    const isMale = req.user?.gender;
+
+    res.render('trip/profile', { trips, isMale });
 });
 
 router.get('/:tripId/delete', isAuth, async (req, res) => {
