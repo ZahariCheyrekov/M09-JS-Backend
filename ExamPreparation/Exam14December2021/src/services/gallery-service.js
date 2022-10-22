@@ -1,6 +1,10 @@
 const Publication = require('../models/Publication');
 const User = require('../models/User');
 
+exports.getOne = async (publicationId) => {
+    return await Publication.findById(publicationId);
+}
+
 exports.getAll = async () => {
     return await Publication.find().lean();
 }
