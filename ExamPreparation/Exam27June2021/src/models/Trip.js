@@ -43,9 +43,9 @@ const tripSchema = mongoose.Schema({
     },
     buddies: [
         {
-            type: [],
+            type: String,
             ref: 'User',
-            default: []
+            default: ''
         }
     ]
 });
