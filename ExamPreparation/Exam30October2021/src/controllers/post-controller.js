@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 const postService = require('../services/post-service');
 const authService = require('../services/auth-service');
+const { isAuth } = require('../middlewares/auth-middleware');
 
 router.get('/', async (req, res) => {
     const posts = await postService.getAll();
@@ -9,11 +10,11 @@ router.get('/', async (req, res) => {
     res.render('posts', { posts });
 });
 
-router.get('/create', async (req, res) => {
+router.get('/create', isAuth, async (req, res) => {
     res.render('posts/create');
 });
 
-router.post('/create', async (req, res) => {
+router.post('/create', isAuth, async (req, res) => {
     try {
         await postService.createPost(req.user._id, { ...req.body, author: req.user._id });
         res.redirect('/posts');
@@ -49,34 +50,34 @@ router.get('/:postId/details', async (req, res) => {
     });
 });
 
-router.get('/:postId/upvote', async (req, res) => {
+router.get('/:postId/upvote', isAuth, async (req, res) => {
     const postId = req.params.postId;
     await postService.upvote(postId, req.user._id);
 
     res.redirect(`/posts${postId}/details`);
 });
 
-router.get('/:postId/downvote', async (req, res) => {
+router.get('/:postId/downvote', isAuth, async (req, res) => {
     const postId = req.params.postId;
     await postService.downvote(postId, req.user._id);
 
     res.redirect(`/posts${postId}/details`);
 });
 
-router.get('/:postId/edit', async (req, res) => {
+router.get('/:postId/edit', isAuth, async (req, res) => {
     const post = await postService.getOne(req.params.postId);
 
     res.render('posts/edit', { ...post.toObject() });
 });
 
-router.post('/:postId/edit', async (req, res) => {
+router.post('/:postId/edit', isAuth, async (req, res) => {
     const postId = req.params.postId;
     await postService.editPost(postId, req.body);
 
     res.redirect(`/posts/${postId}/details`);
 });
 
-router.get('/:postId/delete', async (req, res) => {
+router.get('/:postId/delete', isAuth, async (req, res) => {
     await postService.deletePost(req.params.postId);
 
     res.redirect('/posts');
