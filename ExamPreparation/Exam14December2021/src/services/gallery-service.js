@@ -18,3 +18,7 @@ exports.createPublication = async (userId, publicationData) => {
         { runValidators: true }
     )
 }
+
+exports.deletePublication = async (publicationId) => {
+    return await Publication.findByIdAndDelete(publicationId);
+}
