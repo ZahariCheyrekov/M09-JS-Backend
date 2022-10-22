@@ -36,13 +36,31 @@ router.get('/:postId/details', async (req, res) => {
     const author = `${firstName} ${lastName}`;
     const isOwner = String(post.author) === req.user?._id;
     const isVoted = post.votes.some(vote => String(vote) === req.user?._id);
+    const peopleEmails = await postService.getPeopleEmails(req.params.postId);
+    const emailsAvailable = peopleEmails.length > 0;
 
     res.render('posts/details', {
         ...post.toObject(),
         author,
         isOwner,
-        isVoted
+        isVoted,
+        emailsAvailable,
+        peopleEmails
     });
+});
+
+router.get('/:postId/upvote', async (req, res) => {
+    const postId = req.params.postId;
+    await postService.upvote(postId, req.user._id);
+
+    res.redirect(`/posts${postId}/details`);
+});
+
+router.get('/:postId/downvote', async (req, res) => {
+    const postId = req.params.postId;
+    await postService.downvote(postId, req.user._id);
+
+    res.redirect(`/posts${postId}/details`);
 });
 
 router.get('/:postId/delete', async (req, res) => {
@@ -50,4 +68,5 @@ router.get('/:postId/delete', async (req, res) => {
 
     res.redirect('/posts');
 });
+
 module.exports = router;
