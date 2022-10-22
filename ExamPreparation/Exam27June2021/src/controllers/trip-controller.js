@@ -52,4 +52,10 @@ router.get('/:tripId/join', async (req, res) => {
     res.redirect(`/trip/${tripId}/details`);
 });
 
+router.get('/:tripId/delete', async (req, res) => {
+    await tripService.deleteTrip(req.params.tripId);
+
+    res.redirect('/trip');
+});
+
 module.exports = router;
