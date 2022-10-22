@@ -23,7 +23,6 @@ exports.login = async ({ email, password }) => {
     const payload = {
         _id: user.id,
         email: user.email,
-        gender: user.gender
     }
 
     const token = jwt.sign(payload, JWT_SECRET);
