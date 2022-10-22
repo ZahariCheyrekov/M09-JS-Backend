@@ -7,8 +7,8 @@ exports.getUser = async (userId) => {
     return await User.findById(userId);
 }
 
-exports.login = async ({ email, password }) => {
-    const user = await User.findOne({ email });
+exports.login = async ({ username, password }) => {
+    const user = await User.findOne({ username});
 
     if (!user) {
         throw new Error('Invalid email or password');
@@ -22,7 +22,7 @@ exports.login = async ({ email, password }) => {
 
     const payload = {
         _id: user.id,
-        email: user.email,
+        username: user.username,
     }
 
     const token = jwt.sign(payload, JWT_SECRET);
