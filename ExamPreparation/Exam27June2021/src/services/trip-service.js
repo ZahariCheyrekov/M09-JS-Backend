@@ -29,3 +29,7 @@ exports.joinTrip = async (userEmail, tripId) => {
         { runValidators: true }
     )
 }
+
+exports.deleteTrip = async (tripId) => {
+    return await Trip.findByIdAndDelete(tripId);
+}
