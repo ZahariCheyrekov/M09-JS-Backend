@@ -38,4 +38,10 @@ router.get('/:publicationId/details', async (req, res) => {
     res.render('gallery/details', { ...publication.toObject(), authorName, isOwner });
 });
 
+router.get('/:publicationId/delete', async (req, res) => {
+    await galleryService.deletePublication(req.params.publicationId);
+
+    res.redirect('/gallery');
+});
+
 module.exports = router;
