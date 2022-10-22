@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+const authService = require('../services/auth-service');
 const galleryService = require('../services/gallery-service');
 
 router.get('/', async (req, res) => {
@@ -26,6 +27,15 @@ router.post('/create', async (req, res) => {
 
         res.render('gallery/create', { errors });
     }
+});
+
+router.get('/:publicationId/details', async (req, res) => {
+    const publication = await galleryService.getOne(req.params.publicationId);
+    const { username: authorName } = await authService.getUser(req.user?._id);
+
+    const isOwner = String(publication.author) === req.user?._id;
+
+    res.render('gallery/details', { ...publication.toObject(), authorName, isOwner });
 });
 
 module.exports = router;
