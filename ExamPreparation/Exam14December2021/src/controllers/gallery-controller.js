@@ -45,6 +45,21 @@ router.get('/:publicationId/share', async (req, res) => {
     res.redirect('/');
 });
 
+router.get('/:publicationId/edit', async (req, res) => {
+    const publication = await galleryService.getOne(req.params.publicationId);
+
+    res.render('gallery/edit', { ...publication.toObject() });
+});
+
+router.post('/:publicationId/edit', async (req, res) => {
+    const publicationId = req.params.publicationId;
+    const publicationData = req.body;
+
+    await galleryService.editPublication(publicationId, publicationData);
+
+    res.redirect(`/gallery/${publicationId}/details`);
+});
+
 router.get('/:publicationId/delete', async (req, res) => {
     await galleryService.deletePublication(req.params.publicationId);
 
