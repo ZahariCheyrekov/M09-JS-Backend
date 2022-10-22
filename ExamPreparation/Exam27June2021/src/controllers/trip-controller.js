@@ -32,8 +32,7 @@ router.get('/:tripId/details', async (req, res) => {
     const availableSeats = trip.seats > 0;
     const joinedBuddies = trip.buddies.length > 0;
     const buddies = trip.buddies.join(', ');
-    const joined = !isOwner && trip.buddies.some(buddy => String(buddy) === req.user?._id);
-    console.log(joined)
+    const joined = !isOwner && trip.buddies.some(buddy => buddy === req.user?.email);
 
     res.render('trip/details', {
         ...trip.toObject(),
@@ -41,8 +40,16 @@ router.get('/:tripId/details', async (req, res) => {
         isOwner,
         availableSeats,
         joinedBuddies,
-        buddies
+        buddies,
+        joined
     });
+});
+
+router.get('/:tripId/join', async (req, res) => {
+    const tripId = req.params.tripId;
+    await tripService.joinTrip(req.user.email, tripId);
+
+    res.redirect(`/trip/${tripId}/details`);
 });
 
 module.exports = router;
