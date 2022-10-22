@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+const { isAuth } = require('../middlewares/auth-middleware');
 const authService = require('../services/auth-service');
 const galleryService = require('../services/gallery-service');
 
@@ -9,11 +10,11 @@ router.get('/', async (req, res) => {
     res.render('gallery', { publications });
 });
 
-router.get('/create', async (req, res) => {
+router.get('/create', isAuth, async (req, res) => {
     res.render('gallery/create');
 });
 
-router.post('/create', async (req, res) => {
+router.post('/create', isAuth, async (req, res) => {
     try {
         await galleryService.createPublication(req.user._id, { ...req.body, author: req.user._id })
         res.redirect('/gallery');
@@ -39,19 +40,19 @@ router.get('/:publicationId/details', async (req, res) => {
     res.render('gallery/details', { ...publication.toObject(), authorName, isOwner, isShared });
 });
 
-router.get('/:publicationId/share', async (req, res) => {
+router.get('/:publicationId/share', isAuth, async (req, res) => {
     await galleryService.sharePublication(req.params.publicationId, req.user._id);
 
     res.redirect('/');
 });
 
-router.get('/:publicationId/edit', async (req, res) => {
+router.get('/:publicationId/edit', isAuth, async (req, res) => {
     const publication = await galleryService.getOne(req.params.publicationId);
 
     res.render('gallery/edit', { ...publication.toObject() });
 });
 
-router.post('/:publicationId/edit', async (req, res) => {
+router.post('/:publicationId/edit', isAuth, async (req, res) => {
     const publicationId = req.params.publicationId;
     const publicationData = req.body;
 
@@ -60,7 +61,7 @@ router.post('/:publicationId/edit', async (req, res) => {
     res.redirect(`/gallery/${publicationId}/details`);
 });
 
-router.get('/:publicationId/delete', async (req, res) => {
+router.get('/:publicationId/delete', isAuth, async (req, res) => {
     await galleryService.deletePublication(req.params.publicationId);
 
     res.redirect('/gallery');
