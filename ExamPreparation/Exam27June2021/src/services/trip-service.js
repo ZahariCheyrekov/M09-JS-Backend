@@ -9,6 +9,10 @@ exports.getTrips = async () => {
     return await Trip.find().lean();
 }
 
+exports.getUserTrips = async (userId) => {
+    return await Trip.find({ creator: userId }).lean();
+}
+
 exports.createTrip = async (userId, tripData) => {
     const trip = await Trip.create(tripData);
 
