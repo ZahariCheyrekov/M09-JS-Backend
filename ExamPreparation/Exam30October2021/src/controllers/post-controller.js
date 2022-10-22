@@ -63,6 +63,19 @@ router.get('/:postId/downvote', async (req, res) => {
     res.redirect(`/posts${postId}/details`);
 });
 
+router.get('/:postId/edit', async (req, res) => {
+    const post = await postService.getOne(req.params.postId);
+
+    res.render('posts/edit', { ...post.toObject() });
+});
+
+router.post('/:postId/edit', async (req, res) => {
+    const postId = req.params.postId;
+    await postService.editPost(postId, req.body);
+
+    res.redirect(`/posts/${postId}/details`);
+});
+
 router.get('/:postId/delete', async (req, res) => {
     await postService.deletePost(req.params.postId);
 
