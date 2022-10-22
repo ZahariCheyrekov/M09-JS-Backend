@@ -19,6 +19,14 @@ exports.createPublication = async (userId, publicationData) => {
     )
 }
 
+exports.sharePublication = async (publicationId, userId) => {
+    return await Publication.findByIdAndUpdate(
+        { _id: publicationId },
+        { $push: { usersShared: userId } },
+        { runValidators: true }
+    )
+}
+
 exports.deletePublication = async (publicationId) => {
     return await Publication.findByIdAndDelete(publicationId);
 }
