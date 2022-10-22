@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
 const postService = require('../services/post-service');
+const authService = require('../services/auth-service');
 
 router.get('/', async (req, res) => {
     const posts = await postService.getAll();
@@ -28,10 +29,25 @@ router.post('/create', async (req, res) => {
     }
 });
 
+router.get('/:postId/details', async (req, res) => {
+    const post = await postService.getOne(req.params.postId);
+    const { firstName, lastName } = await authService.getUser(post.author);
+
+    const author = `${firstName} ${lastName}`;
+    const isOwner = String(post.author) === req.user?._id;
+    const isVoted = post.votes.some(vote => String(vote) === req.user?._id);
+
+    res.render('posts/details', {
+        ...post.toObject(),
+        author,
+        isOwner,
+        isVoted
+    });
+});
 
 router.get('/:postId/delete', async (req, res) => {
     await postService.deletePost(req.params.postId);
 
-    res.redirect('/post');
+    res.redirect('/posts');
 });
 module.exports = router;
