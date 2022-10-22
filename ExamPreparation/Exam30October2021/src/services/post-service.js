@@ -3,6 +3,10 @@ const User = require('../models/User');
 
 const userService = require('../services/auth-service');
 
+exports.getOne = async (postId) => {
+    return await Post.findById(postId);
+}
+
 exports.getAll = async () => {
     return await Post.find().lean();
 }
