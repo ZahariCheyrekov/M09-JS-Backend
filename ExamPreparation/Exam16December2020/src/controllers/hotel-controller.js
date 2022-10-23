@@ -16,4 +16,13 @@ router.post('/create', async (req, res) => {
     }
 });
 
+router.get('/:hotelId/details', async (req, res) => {
+    const hotel = await hotelService.getOne(req.params.hotelId);
+
+    const isOwner = hotel.owner === req.user?.username;
+    const isBooked = hotel.usersBooked.some(user => String(user) === req.user?._id);
+
+    res.render('hotels/details', { ...hotel.toObject(), isOwner, isBooked });
+});
+
 module.exports = router;
