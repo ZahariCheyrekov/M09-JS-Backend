@@ -14,6 +14,7 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String,
+        min: [5, 'The name should be at least 5 characters long.'],
         required: true
     },
     bookedHotels: [
