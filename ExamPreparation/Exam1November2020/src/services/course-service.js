@@ -5,11 +5,24 @@ exports.getOne = async (courseId) => {
 }
 
 exports.getTopCourses = async () => {
-    return await Course.find().sort({ usersEnrolled: -1, createdAt: 1 }).lean();
+    return await Course
+        .find()
+        .sort({ usersEnrolled: -1, createdAt: 1 })
+        .lean();
+}
+
+exports.getCoursesByTitle = async (name) => {
+    return await Course
+        .find({ title: { $regex: name, $options: 'i' } })
+        .sort({ createdAt: -1 })
+        .lean();
 }
 
 exports.getAll = async () => {
-    return await Course.find().sort({ createdAt: 1 }).lean();
+    return await Course
+        .find()
+        .sort({ createdAt: 1 })
+        .lean();
 }
 
 exports.createCourse = async (courseData) => {
