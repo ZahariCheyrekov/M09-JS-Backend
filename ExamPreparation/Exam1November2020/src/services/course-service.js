@@ -7,3 +7,7 @@ exports.getTopCourses = async () => {
 exports.getAll = async () => {
     return await Course.find({ createdAt: -1 }).lean();
 }
+
+exports.createCourse = async (courseData) => {
+    return await Course.create(courseData);
+}
