@@ -9,6 +9,18 @@ exports.getTopHotels = async () => {
     return await Hotel.find().sort({ freeRooms: -1, createdAt: -1 }).limit(3).lean();
 }
 
+exports.getUserReservations = async (userId) => {
+    const reservations = [];
+
+    const hotels = await Hotel.find({ usersBooked: { $in: userId } });
+
+    for (const { name } of hotels) {
+        reservations.push({ 'name': name });
+    }
+
+    return reservations;
+}
+
 exports.create = async (userId, hotelData) => {
     const hotel = await Hotel.create(hotelData);
 
