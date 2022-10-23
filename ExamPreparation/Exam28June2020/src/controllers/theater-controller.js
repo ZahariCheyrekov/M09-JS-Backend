@@ -7,23 +7,21 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
-    console.log(req.body)
     try {
         const isTheaterPublic = req.body.isPublic === 'on' ? true : false;
         req.body.isPublic=isTheaterPublic;
-        
+
         await theaterService.createTheater({ ...req.body, author: req.user._id });
         res.redirect('/');
 
     } catch (error) {
-        // const errors = [];
+        const errors = [];
 
-        // for (const { properties } of Object.values(error.errors)) {
-        //     errors.push({ 'error': properties.message });
-        // }
+        for (const { properties } of Object.values(error.errors)) {
+            errors.push({ 'error': properties.message });
+        }
 
-        // res.render('theater/create', { errors });
-        console.log(error);
+        res.render('theater/create', { errors });
     }
 });
 
