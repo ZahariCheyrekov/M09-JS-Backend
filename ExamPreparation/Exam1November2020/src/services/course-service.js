@@ -15,3 +15,11 @@ exports.getAll = async () => {
 exports.createCourse = async (courseData) => {
     return await Course.create(courseData);
 }
+
+exports.enrollCourse = async (userId, courseId) => {
+    return await Course.findByIdAndUpdate(
+        { _id: courseId },
+        { $push: { usersEnrolled: userId } },
+        { runValidators: true }
+    );
+}
