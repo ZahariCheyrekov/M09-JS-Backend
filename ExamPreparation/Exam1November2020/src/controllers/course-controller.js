@@ -39,6 +39,20 @@ router.get('/:courseId/enroll', async (req, res) => {
     res.redirect(`/courses/${courseId}/details`);
 });
 
+router.get('/:courseId/edit', async (req, res) => {
+    const course = await courseService.getOne(req.params.courseId);
+
+    res.render('course/edit', { ...course.toObject() });
+});
+
+router.post('/:courseId/edit', async (req, res) => {
+    const courseId = req.params.courseId;
+
+    await courseService.editCourse(courseId, req.body);
+
+    res.redirect(`/courses/${courseId}/details`);
+});
+
 router.get('/:courseId/delete', async (req, res) => {
     await courseService.deleteCourse(req.params.courseId);
 
