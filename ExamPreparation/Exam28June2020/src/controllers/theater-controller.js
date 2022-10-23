@@ -36,4 +36,10 @@ router.get('/:theaterId/details', async (req, res) => {
     res.render('theater/details', { ...theater.toObject(), author, isOwner, isLiked });
 });
 
+router.get('/:theaterId/delete', async (req, res) => {
+    await theaterService.deleteTheater(req.params.theaterId);
+    
+    res.redirect('/');
+});
+
 module.exports = router;
