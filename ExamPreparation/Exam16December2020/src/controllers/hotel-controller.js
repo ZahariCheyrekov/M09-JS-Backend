@@ -25,4 +25,12 @@ router.get('/:hotelId/details', async (req, res) => {
     res.render('hotels/details', { ...hotel.toObject(), isOwner, isBooked });
 });
 
+router.get('/:hotelId/book', async (req, res) => {
+    const hotelId = req.params.hotelId;
+
+    await hotelService.bookHotel(req.user._id, hotelId);
+
+    res.redirect(`/hotels/${hotelId}/details`);
+});
+
 module.exports = router;
