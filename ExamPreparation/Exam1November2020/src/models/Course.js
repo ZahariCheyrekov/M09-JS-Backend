@@ -19,6 +19,10 @@ const courseSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    owner: {
+        type: mongoose.Types.ObjectId,
+        red: 'User'
+    },
     usersEnrolled: [
         {
             type: mongoose.Types.ObjectId,
