@@ -23,3 +23,7 @@ exports.enrollCourse = async (userId, courseId) => {
         { runValidators: true }
     );
 }
+
+exports.deleteCourse = async (courseId) => {
+    return await Course.findByIdAndDelete(courseId);
+}
