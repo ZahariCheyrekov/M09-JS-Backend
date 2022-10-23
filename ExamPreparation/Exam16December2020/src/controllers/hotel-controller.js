@@ -33,6 +33,20 @@ router.get('/:hotelId/book', async (req, res) => {
     res.redirect(`/hotels/${hotelId}/details`);
 });
 
+router.get('/:hotelId/edit', async (req, res) => {
+    const hotel = await hotelService.getOne(req.params.hotelId);
+
+    res.render('hotels/edit', { ...hotel.toObject() });
+});
+
+router.post('/:hotelId/edit', async (req, res) => {
+    const hotelId = req.params.hotelId;
+
+    await hotelService.editHotel(hotelId, req.body);
+
+    res.redirect(`/hotels/${hotelId}/details`);
+});
+
 router.get('/:bookId/delete', async (req, res) => {
     await hotelService.deleteHotel(req.params.bookId);
 
