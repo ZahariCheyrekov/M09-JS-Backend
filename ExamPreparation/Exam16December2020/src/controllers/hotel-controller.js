@@ -48,6 +48,12 @@ router.post('/:hotelId/edit', isAuth, async (req, res) => {
     res.redirect(`/hotels/${hotelId}/details`);
 });
 
+router.get('/profile', isAuth, async (req, res) => {
+    const reservations = await hotelService.getUserReservations(req.user._id);
+
+    res.render('hotels/profile', { reservations });
+});
+
 router.get('/:bookId/delete', isAuth, async (req, res) => {
     await hotelService.deleteHotel(req.params.bookId);
 
