@@ -31,4 +31,12 @@ router.get('/:courseId/details', async (req, res) => {
     res.render('course/details', { ...course.toObject(), isOwner, isEnrolled });
 });
 
+router.get('/:courseId/enroll', async (req, res) => {
+    const courseId = req.params.courseId;
+
+    await courseService.enrollCourse(req.user._id, courseId);
+
+    res.redirect(`/courses/${courseId}/details`);
+});
+
 module.exports = router;
