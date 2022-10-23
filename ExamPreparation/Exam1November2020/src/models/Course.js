@@ -4,15 +4,18 @@ const courseSchema = mongoose.Schema({
     title: {
         type: String,
         unique: true,
+        min: [4, 'Username should be at least 4 characters long'],
         required: true
     },
     description: {
         type: String,
         max: 50,
+        min: [20, 'Username should be at least 20 characters long'],
         required: true
     },
     imageUrl: {
         type: String,
+        validate: /^https?:\/\//i,
         required: true
     },
     duration: {
