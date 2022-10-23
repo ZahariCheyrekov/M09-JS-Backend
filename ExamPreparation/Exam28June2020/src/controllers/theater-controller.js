@@ -1,13 +1,14 @@
 const router = require('express').Router();
 
+const { isAuth } = require('../middlewares/auth-middleware');
 const authService = require('../services/auth-service');
 const theaterService = require('../services/theater-service');
 
-router.get('/create', (req, res) => {
+router.get('/create', isAuth, (req, res) => {
     res.render('theater/create');
 });
 
-router.post('/create', async (req, res) => {
+router.post('/create', isAuth, async (req, res) => {
     try {
         const isTheaterPublic = req.body.isPublic === 'on' ? true : false;
         req.body.isPublic = isTheaterPublic;
@@ -36,13 +37,13 @@ router.get('/:theaterId/details', async (req, res) => {
     res.render('theater/details', { ...theater.toObject(), author, isOwner, isLiked });
 });
 
-router.get('/:theaterId/edit', async (req, res) => {
+router.get('/:theaterId/edit', isAuth, async (req, res) => {
     const theater = await theaterService.getOne(req.params.theaterId);
 
     res.render('theater/edit', { ...theater.toObject() });
 });
 
-router.get('/:theaterId/like', async (req, res) => {
+router.get('/:theaterId/like', isAuth, async (req, res) => {
     const theaterId = req.params.theaterId;
 
     await theaterService.likeTheater(req.user._id, theaterId);
@@ -50,7 +51,7 @@ router.get('/:theaterId/like', async (req, res) => {
     res.redirect(`/theaters/${theaterId}/details`);
 });
 
-router.post('/:theaterId/edit', async (req, res) => {
+router.post('/:theaterId/edit', isAuth, async (req, res) => {
     const theaterId = req.params.theaterId;
 
     const isTheaterPublic = req.body.isPublic === 'on' ? true : false;
@@ -61,7 +62,7 @@ router.post('/:theaterId/edit', async (req, res) => {
     res.redirect(`/theaters/${theaterId}/details`);
 });
 
-router.get('/:theaterId/delete', async (req, res) => {
+router.get('/:theaterId/delete', isAuth, async (req, res) => {
     await theaterService.deleteTheater(req.params.theaterId);
 
     res.redirect('/');
