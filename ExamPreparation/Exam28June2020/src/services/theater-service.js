@@ -1,5 +1,9 @@
 const Play = require('../models/Play');
 
+exports.getOne = async (theaterId) => {
+    return await Play.findById(theaterId);
+}
+
 exports.getTopTheaters = async () => {
     return await Play.find().sort({ usersLiked: -1 }).limit(3).lean();
 }
