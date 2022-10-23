@@ -33,4 +33,10 @@ router.get('/:hotelId/book', async (req, res) => {
     res.redirect(`/hotels/${hotelId}/details`);
 });
 
+router.get('/:bookId/delete', async (req, res) => {
+    await hotelService.deleteHotel(req.params.bookId);
+
+    res.redirect('/');
+});
+
 module.exports = router;
