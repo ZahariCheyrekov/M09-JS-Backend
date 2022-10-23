@@ -18,3 +18,17 @@ exports.create = async (userId, hotelData) => {
         { runValidators: true }
     )
 }
+
+exports.bookHotel = async (userId, hotelId) => {
+    await User.findByIdAndUpdate(
+        { _id: userId },
+        { $push: { bookedHotels: hotelId } },
+        { runValidators: true }
+    );
+
+    return await Hotel.findByIdAndUpdate(
+        { _id: hotelId },
+        { $push: { usersBooked: userId } },
+        { runValidators: true }
+    );
+}
