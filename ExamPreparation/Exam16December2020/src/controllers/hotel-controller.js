@@ -13,7 +13,13 @@ router.post('/create', isAuth, async (req, res) => {
         res.redirect('/');
 
     } catch (error) {
-        console.log(error);
+        const errors = [];
+
+        for (const { properties } of Object.values(error.errors)) {
+            errors.push({ 'error': properties.message });
+        }
+
+        res.render('hotels/create', { errors });
     }
 });
 
