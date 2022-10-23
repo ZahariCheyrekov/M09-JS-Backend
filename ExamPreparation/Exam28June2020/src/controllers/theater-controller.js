@@ -36,9 +36,26 @@ router.get('/:theaterId/details', async (req, res) => {
     res.render('theater/details', { ...theater.toObject(), author, isOwner, isLiked });
 });
 
+router.get('/:theaterId/edit', async (req, res) => {
+    const theater = await theaterService.getOne(req.params.theaterId);
+
+    res.render('theater/edit', { ...theater.toObject() });
+});
+
+router.post('/:theaterId/edit', async (req, res) => {
+    const theaterId = req.params.theaterId;
+
+    const isTheaterPublic = req.body.isPublic === 'on' ? true : false;
+    req.body.isPublic = isTheaterPublic;
+
+    await theaterService.editTheater(theaterId, req.body);
+
+    res.redirect(`/theaters/${theaterId}/details`);
+});
+
 router.get('/:theaterId/delete', async (req, res) => {
     await theaterService.deleteTheater(req.params.theaterId);
-    
+
     res.redirect('/');
 });
 
