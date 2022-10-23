@@ -6,10 +6,12 @@ const { SALT_ROUNDS } = require('../constants');
 const userSchema = mongoose.Schema({
     username: {
         type: String,
+        min: [3, 'Username must be at least 3 characters long'],
         required: true
     },
     password: {
         type: String,
+        min: [3, 'Password must be at least 3 characters long'],
         required: true
     },
     likedPlays: [
