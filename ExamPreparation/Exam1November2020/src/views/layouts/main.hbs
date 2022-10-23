@@ -35,9 +35,13 @@
         </ul>
       </nav>
 
-      <section class="notifications">
-        <p class="notification-message">Message...</p>
-      </section>
+      {{#if errors}}
+        <section class="notifications">
+          {{#each errors}}
+            <p class="notification-message">{{error}}</p>
+          {{/each}}
+        </section>
+      {{/if}}
 
       <main>
         {{{body}}}
