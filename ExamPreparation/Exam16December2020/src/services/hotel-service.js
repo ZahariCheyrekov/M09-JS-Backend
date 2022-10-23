@@ -28,9 +28,16 @@ exports.bookHotel = async (userId, hotelId) => {
 
     return await Hotel.findByIdAndUpdate(
         { _id: hotelId },
-        { $push: { usersBooked: userId } },
+        {
+            $push: { usersBooked: userId },
+            $inc: { freeRooms: -1 }
+        },
         { runValidators: true }
     );
+}
+
+exports.editHotel = async (hotelId, hotelData) => {
+    return await Hotel.findByIdAndUpdate(hotelId, hotelData);
 }
 
 exports.deleteHotel = async (hotelId) => {
