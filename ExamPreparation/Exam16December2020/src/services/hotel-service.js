@@ -32,3 +32,7 @@ exports.bookHotel = async (userId, hotelId) => {
         { runValidators: true }
     );
 }
+
+exports.deleteHotel = async (hotelId) => {
+    return await Hotel.findByIdAndDelete(hotelId);
+}
