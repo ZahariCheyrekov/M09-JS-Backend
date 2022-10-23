@@ -19,10 +19,6 @@ const playSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
-    createdAt: {
-        type: String || Date,
-        required: true
-    },
     author: {
         type: mongoose.Types.ObjectId,
         ref: 'User'
@@ -33,6 +29,6 @@ const playSchema = mongoose.Schema({
             ref: 'User'
         }
     ]
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Play', playSchema);
