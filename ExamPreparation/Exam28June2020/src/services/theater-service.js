@@ -7,3 +7,7 @@ exports.getTopTheaters = async () => {
 exports.getAll = async () => {
     return await Play.find({ isPublic: true }).sort({ createdAt: -1 }).lean();
 }
+
+exports.createTheater = async (theaterData) => {
+    return await Play.create(theaterData);
+}
