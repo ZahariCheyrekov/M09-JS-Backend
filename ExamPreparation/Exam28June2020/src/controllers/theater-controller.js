@@ -42,6 +42,14 @@ router.get('/:theaterId/edit', async (req, res) => {
     res.render('theater/edit', { ...theater.toObject() });
 });
 
+router.get('/:theaterId/like', async (req, res) => {
+    const theaterId = req.params.theaterId;
+
+    await theaterService.likeTheater(req.user._id, theaterId);
+
+    res.redirect(`/theaters/${theaterId}/details`);
+});
+
 router.post('/:theaterId/edit', async (req, res) => {
     const theaterId = req.params.theaterId;
 
