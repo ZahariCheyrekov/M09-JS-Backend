@@ -16,6 +16,10 @@ exports.createTheater = async (theaterData) => {
     return await Play.create(theaterData);
 }
 
+exports.editTheater = async (theaterId, theaterData) => {
+    return await Play.findByIdAndUpdate(theaterId, theaterData);
+}
+
 exports.deleteTheater = async (theaterId) => {
     return await Play.findByIdAndDelete(theaterId);
 }
