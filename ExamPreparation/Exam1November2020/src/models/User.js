@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    courser: [
+    courses: [
         {
             type: mongoose.Types.ObjectId,
             ref: 'Course'
