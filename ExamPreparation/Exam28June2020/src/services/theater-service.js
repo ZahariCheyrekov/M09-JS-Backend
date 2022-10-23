@@ -15,3 +15,7 @@ exports.getAll = async () => {
 exports.createTheater = async (theaterData) => {
     return await Play.create(theaterData);
 }
+
+exports.deleteTheater = async (theaterId) => {
+    return await Play.findByIdAndDelete(theaterId);
+}
