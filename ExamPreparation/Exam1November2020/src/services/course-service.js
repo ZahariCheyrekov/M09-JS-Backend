@@ -24,6 +24,10 @@ exports.enrollCourse = async (userId, courseId) => {
     );
 }
 
+exports.editCourse = async (courseId, courseData) => {
+    return await Course.findByIdAndUpdate(courseId, courseData);
+}
+
 exports.deleteCourse = async (courseId) => {
     return await Course.findByIdAndDelete(courseId);
 }
