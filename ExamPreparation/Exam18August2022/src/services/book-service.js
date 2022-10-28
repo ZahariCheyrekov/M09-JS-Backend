@@ -12,6 +12,14 @@ exports.createBook = async (bookData) => {
     return await Book.create(bookData);
 }
 
+exports.wishBook = async (bookId, userId) => {
+    return await Book.findByIdAndUpdate(
+        { _id: bookId },
+        { $push: { wishingList: userId } },
+        { runValidators: true }
+    );
+}
+
 exports.deleteBook = async (bookId) => {
     return await Book.findByIdAndDelete(bookId);
 }
