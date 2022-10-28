@@ -12,10 +12,12 @@
   </head>
 
   <body>
-    {{#if errrors}}
+    {{#if errors}}
       <div>
         <div class="errorContainer">
-          <p>{{error}}</p>
+          {{#each errors}}
+            <p>{{error}}</p>
+          {{/each}}
         </div>
       </div>
     {{/if}}
