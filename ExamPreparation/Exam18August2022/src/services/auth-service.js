@@ -8,7 +8,7 @@ exports.getUser = async (userId) => {
 }
 
 exports.login = async ({ username, password }) => {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
 
     if (!user) {
         throw new Error('Invalid email or password');
