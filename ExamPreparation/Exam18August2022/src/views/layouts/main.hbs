@@ -12,6 +12,7 @@
   </head>
 
   <body>
+    {{#if errrors}}
       <div>
         <div class="errorContainer">
           <p>{{error}}</p>
@@ -29,7 +30,7 @@
             <a href="#">Create Review</a>
             <a href="#">Logout</a>
           {{else}}
-            <a href="#">Login</a>
+            <a href="/auth/login">Login</a>
             <a href="#">Register</a>
           {{/if}}
         </nav>
