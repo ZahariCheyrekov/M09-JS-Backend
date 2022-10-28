@@ -13,7 +13,7 @@ const bookSchema = mongoose.Schema({
     },
     image: {
         type: String,
-        validate: /^https?:\/\//i,
+        validate: [/^https?:\/\//i, 'Image url should start with \'http: or https:\' '],
         required: true
     },
     bookReview: {
