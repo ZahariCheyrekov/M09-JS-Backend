@@ -20,6 +20,10 @@ exports.wishBook = async (bookId, userId) => {
     );
 }
 
+exports.editBook = async (bookId, bookData) => {
+    return await Book.findByIdAndUpdate(bookId, bookData);
+}
+
 exports.deleteBook = async (bookId) => {
     return await Book.findByIdAndDelete(bookId);
 }
