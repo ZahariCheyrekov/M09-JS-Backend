@@ -19,14 +19,13 @@ router.post('/create', isAuth, async (req, res) => {
         res.redirect('/books');
 
     } catch (error) {
-        console.log(error);
         const errors = [];
 
         for (const { properties } of Object.values(error.errors)) {
             errors.push({ 'error': properties.message });
         }
 
-        res.render('theater/create', { errors });
+        res.render('book/create', { errors });
     }
 });
 
