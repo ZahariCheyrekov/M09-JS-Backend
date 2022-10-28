@@ -1,5 +1,9 @@
 const Book = require('../models/Book');
 
+exports.getOne = async (bookId) => {
+    return await Book.findById(bookId);
+}
+
 exports.getAll = async () => {
     return await Book.find().lean();
 }
