@@ -11,3 +11,7 @@ exports.getAll = async () => {
 exports.createBook = async (bookData) => {
     return await Book.create(bookData);
 }
+
+exports.deleteBook = async (bookId) => {
+    return await Book.findByIdAndDelete(bookId);
+}
