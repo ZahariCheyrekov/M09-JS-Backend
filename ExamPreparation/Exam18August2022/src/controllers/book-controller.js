@@ -31,8 +31,17 @@ router.post('/create', async (req, res) => {
 
 router.get('/:bookId/details', async (req, res) => {
     const book = await bookService.getOne(req.params.bookId);
-    
-    res.render('book/details', { ...book.toObject() });
+
+    const isOwner = String(book.owner) === req.user?._id;
+    const isWished = book.wishingList.some(user => String(user) === req.user?._id);
+
+    res.render('book/details', { ...book.toObject(), isOwner, isWished });
+});
+
+router.get('/:bookId/delete', async (req, res) => {
+    await bookService.deleteBook(req.params.bookId);
+
+    res.redirect('/books');
 });
 
 module.exports = router;
