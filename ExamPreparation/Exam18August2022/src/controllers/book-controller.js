@@ -29,4 +29,10 @@ router.post('/create', async (req, res) => {
     }
 });
 
+router.get('/:bookId/details', async (req, res) => {
+    const book = await bookService.getOne(req.params.bookId);
+    
+    res.render('book/details', { ...book.toObject() });
+});
+
 module.exports = router;
