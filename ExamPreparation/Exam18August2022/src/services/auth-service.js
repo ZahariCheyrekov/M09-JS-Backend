@@ -7,7 +7,7 @@ exports.getUser = async (userId) => {
     return await User.findById(userId);
 }
 
-exports.login = async ({ username, password }) => {
+exports.login = async ({ email, password }) => {
     const user = await User.findOne({ email });
 
     if (!user) {
