@@ -4,6 +4,13 @@ exports.getOne = async (cryptoId) => {
     return await Crypto.findById(cryptoId);
 }
 
+exports.getCoinsPayment = async (name, paymentMethod) => {
+    return await Crypto
+        .find({ name: { $regex: name, $options: 'i' } })
+        .find({ paymentMethod: { $regex: paymentMethod, $options: 'i' } })
+        .lean();
+}
+
 exports.getAll = async () => {
     return await Crypto.find().lean();
 }
