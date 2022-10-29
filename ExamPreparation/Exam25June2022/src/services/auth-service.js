@@ -3,9 +3,9 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../models/User');
 const { JWT_SECRET } = require('../constants');
 
-exports.login = async ({ username, password }) => {
+exports.login = async ({ email, password }) => {
     try {
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ email });
 
         if (!user) {
             throw new Error('Invalid username or password');
