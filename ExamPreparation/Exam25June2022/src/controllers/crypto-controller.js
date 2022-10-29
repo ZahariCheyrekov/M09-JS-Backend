@@ -28,4 +28,13 @@ router.post('/create', async (req, res) => {
     }
 });
 
+router.get('/:cryptoId/details', async (req, res) => {
+    const crypto = await cryptoService.getOne(req.params.cryptoId);
+
+    const isOwner = String(crypto.owner) === req.user?._id;
+    const isBought = crypto.buyCrypto.some(user => String(user) === req.user?._id);
+
+    res.render('crypto/details', { ...crypto.toObject(), isOwner, isBought });
+});
+
 module.exports = router;
