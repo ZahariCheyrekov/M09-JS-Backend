@@ -27,11 +27,15 @@
     </header>
 
     <main>
-      <!-- <div>
-            <div class="errorContainer">
-                <p>Error</p>
-            </div>
-        </div> -->
+      {{#if errors}}
+        <div>
+          <div class="errorContainer">
+            {{#each errors}}
+              <p>{{error}}</p>
+            {{/each}}
+          </div>
+        </div>
+      {{/if}}
 
       {{{body}}}
 
