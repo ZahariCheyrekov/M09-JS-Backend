@@ -68,6 +68,16 @@ router.get('/search', async (req, res) => {
     res.render('crypto/search', { coins });
 });
 
+router.post('/search', async (req, res) => {
+    console.log(req.body);
+    const name = req.body.name;
+    const paymentMethod = req.body.paymentMethod;
+
+    const coins = await cryptoService.getCoinsPayment(name, paymentMethod);
+
+    res.render('crypto/search', { coins });
+});
+
 router.get('/:cryptoId/delete', isAuth, async (req, res) => {
     await cryptoService.deleteCrypto(req.params.cryptoId);
 
