@@ -62,6 +62,12 @@ router.post('/:cryptoId/edit', isAuth, async (req, res) => {
     res.redirect(`/crypto/${cryptoId}/details`);
 });
 
+router.get('/search', async (req, res) => {
+    const coins = await cryptoService.getAll();
+
+    res.render('crypto/search', { coins });
+});
+
 router.get('/:cryptoId/delete', isAuth, async (req, res) => {
     await cryptoService.deleteCrypto(req.params.cryptoId);
 
