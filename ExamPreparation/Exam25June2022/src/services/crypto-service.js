@@ -1,5 +1,9 @@
 const Crypto = require('../models/Crypto');
 
+exports.getOne = async (cryptoId) => {
+    return await Crypto.findById(cryptoId);
+}
+
 exports.getAll = async () => {
     return await Crypto.find().lean();
 }
