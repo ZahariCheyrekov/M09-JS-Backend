@@ -20,6 +20,10 @@ exports.buyCrypto = async (cryptoId, userId) => {
     );
 }
 
+exports.editCrypto = async (cryptoId, cryptoData) => {
+    return await Crypto.findByIdAndUpdate(cryptoId, cryptoData);
+}
+
 exports.deleteCrypto = async (cryptoId) => {
     return await Crypto.findByIdAndDelete(cryptoId);
 }
