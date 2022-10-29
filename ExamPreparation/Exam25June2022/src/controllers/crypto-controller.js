@@ -2,6 +2,12 @@ const router = require('express').Router();
 
 const cryptoService = require('../services/crypto-service');
 
+router.get('/', async (req, res) => {
+    const coins = await cryptoService.getAll();
+
+    res.render('crypto', { coins });
+});
+
 router.get('/create', (req, res) => {
     res.render('crypto/create');
 });
