@@ -46,4 +46,10 @@ router.get('/:cryptoId/buy', async (req, res) => {
     res.redirect(`/crypto/${cryptoId}/details`);
 });
 
+router.get('/:cryptoId/delete', async (req, res) => {
+    await cryptoService.deleteCrypto(req.params.cryptoId);
+
+    res.redirect('/crypto');
+});
+
 module.exports = router;
