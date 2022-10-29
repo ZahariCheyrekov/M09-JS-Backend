@@ -52,6 +52,15 @@ router.get('/:cryptoId/edit', async (req, res) => {
     res.render('crypto/edit', { ...crypto.toObject() });
 });
 
+router.post('/:cryptoId/edit', async (req, res) => {
+    const cryptoId = req.params.cryptoId;
+    const cryptoData = req.body;
+
+    await cryptoService.editCrypto(cryptoId, cryptoData);
+
+    res.redirect(`/crypto/${cryptoId}/details`);
+});
+
 router.get('/:cryptoId/delete', async (req, res) => {
     await cryptoService.deleteCrypto(req.params.cryptoId);
 
