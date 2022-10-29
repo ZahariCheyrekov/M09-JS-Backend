@@ -46,6 +46,12 @@ router.get('/:cryptoId/buy', async (req, res) => {
     res.redirect(`/crypto/${cryptoId}/details`);
 });
 
+router.get('/:cryptoId/edit', async (req, res) => {
+    const crypto = await cryptoService.getOne(req.params.cryptoId);
+
+    res.render('crypto/edit', { ...crypto.toObject() });
+});
+
 router.get('/:cryptoId/delete', async (req, res) => {
     await cryptoService.deleteCrypto(req.params.cryptoId);
 
