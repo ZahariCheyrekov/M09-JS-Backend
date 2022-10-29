@@ -19,3 +19,7 @@ exports.buyCrypto = async (cryptoId, userId) => {
         { runValidators: true }
     );
 }
+
+exports.deleteCrypto = async (cryptoId) => {
+    return await Crypto.findByIdAndDelete(cryptoId);
+}
