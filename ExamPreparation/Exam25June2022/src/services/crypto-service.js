@@ -11,3 +11,11 @@ exports.getAll = async () => {
 exports.createCrypto = async (cryptoData) => {
     return await Crypto.create(cryptoData);
 }
+
+exports.buyCrypto = async (cryptoId, userId) => {
+    return await Crypto.findByIdAndUpdate(
+        { _id: cryptoId },
+        { $push: { buyCrypto: userId } },
+        { runValidators: true }
+    );
+}
