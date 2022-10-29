@@ -37,4 +37,13 @@ router.get('/:cryptoId/details', async (req, res) => {
     res.render('crypto/details', { ...crypto.toObject(), isOwner, isBought });
 });
 
+router.get('/:cryptoId/buy', async (req, res) => {
+    const cryptoId = req.params.cryptoId;
+    const userId = req.user._id;
+
+    await cryptoService.buyCrypto(cryptoId, userId);
+
+    res.redirect(`/crypto/${cryptoId}/details`);
+});
+
 module.exports = router;
