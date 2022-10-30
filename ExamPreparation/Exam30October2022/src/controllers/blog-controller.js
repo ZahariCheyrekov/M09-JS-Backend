@@ -59,6 +59,38 @@ router.get('/:blogId/follow', isAuth, async (req, res) => {
     res.redirect(`/blog/${blogId}/details`);
 });
 
+router.get('/:blogId/edit', isAuth, async (req, res) => {
+    const blog = await blogService.getOne(req.params.blogId);
+    const isOwner = isBlogOwner(req.user?._id, String(blog.owner));
+
+    if (isOwner) {
+        res.render('blog/edit', { ...blog.toObject() });
+    } else {
+        res.redirect('/');
+    }
+});
+
+router.post('/:blogId/edit', isAuth, isAuthor, async (req, res) => {
+    const blogId = req.params.blogId;
+    const blogData = req.body;
+
+    const blog = await blogService.getOne(req.params.blogId);
+    const isOwner = isBlogOwner(req.user?._id, String(blog.owner));
+
+    if (isOwner) {
+        const isValidInput = await validateFields(req.body);
+
+        if (isValidInput) {
+            await blogService.editBlog(blogId, blogData);
+
+            res.redirect(`/blog/${blogId}/details`);
+        } else {
+            res.render('blog/edit', { ...blog.toObject() });
+        }
+    } else {
+        res.redirect('/');
+    }
+});
 
 router.get('/profile', isAuth, async (req, res) => {
     const userId = req.user._id;
