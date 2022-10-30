@@ -50,6 +50,15 @@ router.get('/:blogId/details', async (req, res) => {
     });
 });
 
+router.get('/:blogId/follow', isAuth, async (req, res) => {
+    const blogId = req.params.blogId;
+    const userId = req.user._id;
+
+    await blogService.followBlog(blogId, userId);
+
+    res.redirect(`/blog/${blogId}/details`);
+});
+
 
 router.get('/profile', isAuth, async (req, res) => {
     const userId = req.user._id;
