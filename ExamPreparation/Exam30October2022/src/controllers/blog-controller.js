@@ -33,6 +33,33 @@ router.post('/create', isAuth, async (req, res) => {
     }
 });
 
+router.get('/:blogId/details', async (req, res) => {
+    const blog = await blogService.getOne(req.params.blogId);
+
+    const { email: authorEmail } = await authService.getUser(blog.owner);
+    const isOwner = String(blog.owner) === req.user?._id;
+    const isFollowing = blog.followList.some(user => String(user) === req.user?._id);
+    const followerList = await blogService.getAllFollowers(blog._id);
+
+    res.render('blog/details', {
+        ...blog.toObject(),
+        authorEmail,
+        isOwner,
+        isFollowing,
+        followerList
+    });
+});
+
+
+router.get('/profile', isAuth, async (req, res) => {
+    const userId = req.user._id;
+
+    const createdBlogs = await blogService.getUserCreatedBlogs(userId);
+    const followedBlogs = await blogService.getUserFollowedBlogs(userId);
+
+    res.render('blog/profile', { createdBlogs, followedBlogs });
+});
+
 router.get('/:blogId/delete', isAuth, isAuthor, async (req, res) => {
     const blog = await blogService.getOne(req.params.blogId);
     const isOwner = isBlogOwner(req.user?._id, String(blog.owner));
