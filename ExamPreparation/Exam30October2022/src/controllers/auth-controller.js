@@ -45,9 +45,45 @@ router.post('/login', isGuest, async (req, res) => {
     }
 });
 
-router.get('/logout', isAuth, (req, res) => {
-    res.clearCookie(COOKIE_NAME);
-    res.redirect('/');
+router.get('/register', isGuest, (req, res) => {
+    res.render('auth/register');
 });
+
+router.post('/register', isGuest, async (req, res) => {
+    const { email, password } = req.body;
+
+    const isValidPassword = validatePassword(req.password, req.rePassword);
+
+    if (!isValidPassword) {
+        res.locals.errors = 'Passwords must be equal!';
+        res.render('auth/register');
+    }
+
+    try {
+        await authService.register(req.body);
+
+        const token = await authService.login({ email, password });
+
+        res.cookie(COOKIE_NAME, token);
+        res.redirect('/');
+
+    } catch (error) {
+        const errors = [];
+
+        if (error.errors) {
+            for (const { properties } of Object.values(error.errors)) {
+                errors.push({ 'error': properties.message });
+            }
+        }
+
+        if (error.message) {
+            errors.push({ 'error': error.message });
+        }
+
+        res.render('auth/register', { errors });
+    }
+});
+
+
 
 module.exports = router;
